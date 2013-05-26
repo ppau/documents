@@ -40,6 +40,25 @@
         -webkit-box-shadow: 0px 0px 10px black;
       }
 
+      a {
+        display: none;
+        text-decoration: none;
+        color: #0073ae;
+        float: right;
+      }
+
+      a:hover {
+        border-bottom: 1px dotted #0073ae;
+      }
+
+      h1:hover a,
+      h2:hover a,
+      h3:hover a,
+      h4:hover a,
+      p:hover a {
+        display: inline;
+      }
+
       h1:before,
       h2:before,
       h3:before,
@@ -92,7 +111,110 @@
           padding: 0 3em;
         }
       }
+      
+      ol { counter-reset: ol1; list-style-type: none; }
+      ol li:before {
+        float: left;
+        margin-left: -1.8em;
+      }
+      ol > li:before { counter-increment: ol1; content: "(" counter(ol1, lower-alpha) ")"; }
+      ol > li > ol { counter-reset: ol2; list-style-type: none; }
+      ol > li > ol > li:before { counter-increment: ol2; content: "(" counter(ol2, lower-roman) ")"; }
     </style>
+    <script>
+window.onload = function() {
+  var treeWalker = document.createTreeWalker(
+    document.body,
+    NodeFilter.SHOW_ELEMENT,
+    function(node) {
+      return 1;
+    }, false
+  );
+
+  var count = {
+    h2: 0,
+    h3: 0,
+    h4: 0,
+    ol: -1
+  }
+
+  alpha = "øabcdefghijklmnopqrstuvwxyz".split('');
+  roman = ['ø', 'i','ii','iii','iv','v','vi','vii','viii','ix','x','xi','xii'];
+  ol = [];
+
+  lastId = null;
+  lastHeading = null;
+  while (treeWalker.nextNode()) {
+    if (/^H\d$/.test(treeWalker.currentNode.tagName)) {
+      lastHeading = treeWalker.currentNode.tagName;
+    }
+
+    if (treeWalker.currentNode.tagName == "H1") {
+      createHrefAfter(treeWalker.currentNode);
+    } else if (treeWalker.currentNode.tagName == "H2") {
+      lastId = treeWalker.currentNode.id = "" + ++count.h2;
+      createHrefAfter(treeWalker.currentNode);
+      count.h3 = count.h4 = 0;
+      count.ol = -1;
+      ol = [];
+    } else if (treeWalker.currentNode.tagName == "H3") {
+      lastId = treeWalker.currentNode.id = count.h2 + "." + (++count.h3);
+      createHrefAfter(treeWalker.currentNode);
+      count.h4 = 0;
+      count.ol = -1;
+      ol = [];
+    } else if (treeWalker.currentNode.tagName == "H4") {
+      lastId = treeWalker.currentNode.id = count.h2 + "." + count.h3 + "." + (++count.h4);
+      createHrefAfter(treeWalker.currentNode);
+      count.ol = -1; ol = [];
+    } else if (treeWalker.currentNode.tagName == "LI") {
+      count.ol = getOlDepth(treeWalker.currentNode.parentNode);
+      if (count.ol == null) { continue; }
+      ol.length = count.ol+1;
+      !ol[count.ol] ? ol[count.ol] = 1 : ol[count.ol]++;
+      treeWalker.currentNode.id = lastId + parseOl();
+      createHrefAfter(treeWalker.currentNode.children[0], treeWalker.currentNode.id);
+    }
+  }
+
+  // Force hash win
+  var tmp = location.hash;
+  location.hash = '';
+  location.hash = tmp;
+
+  function createHrefAfter(_node, _id) {
+    var a = document.createElement('a');
+    a.href = "#" +  (_id || _node.id);
+    a.appendChild(document.createTextNode("¶"));
+    _node.appendChild(a);
+  }
+
+  function getOlDepth(_node) {
+    var _i = 0;
+    if (_node.tagName != "OL") {
+      console.log(_node);
+      return null;
+    }
+    while (_node.parentNode.parentNode.tagName == "OL") {
+      _node = _node.parentNode.parentNode;
+      ++_i;
+    }
+    return _i;
+  }
+
+  function parseOl() {
+    var out = [];
+    for (var i = 0; i < ol.length; ++i) {
+      if (i == 0) {
+        out.push(alpha[ol[i]]);
+      } else {
+        out.push(roman[ol[i]]);
+      }
+    }
+    return "(" + out.join(')(') + ")";
+  }
+}
+    </script>
   </head>
   <body>
     <div class='page'>
@@ -172,7 +294,7 @@
 </ol>
 <h2 id="policy-formulation-development-and-adoption">Policy Formulation, Development and Adoption</h2>
 <h3 id="development">Development</h3>
-<p>Policy development should occur with the maximum possible interaction with the party members - the party should engage in as a participatory process as is possible, and outcomes should be reached through consensus.</p>
+<ol><li><p>Policy development should occur with the maximum possible interaction with the party members - the party should engage in as a participatory process as is possible, and outcomes should be reached through consensus.</p></li></ol>
 <h3 id="adoption">Adoption</h3>
 <ol>
 <li><p>New policy, unless dictated by circumstances of urgency, shall be decided on at the National Congress.</p></li>
@@ -261,7 +383,7 @@
 <li><p>No more than two officer positions may be filled by one member of the National Council.</p></li>
 <li><p>In the event a member of the National Council is unable or unwilling to perform their duties, the remaining members of the National Council may declare the position vacant and appoint an interim replacement by two-thirds majority vote of the remaining members of the National Council. The next National Congress will then elect a Member to fill that vacant position.</p></li>
 <li><p>The method for voting by members at the National Congress will be optional preferential voting, with the method for the next Congress determined by motion at the National Congress. The voting method carries until the next National Congress if a two-thirds majority of members present at the Congress is not met for an alternatively proposed method.</p></li>
-<li><p>Each member is only entitled vote once in each election.</p></li>
+<li><p>Each member is only entitled to vote once in each election.</p></li>
 </ol>
 <h3 id="president">President</h3>
 <h4 id="duties-and-responsibilities">Duties and Responsibilities</h4>
