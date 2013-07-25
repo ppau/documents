@@ -55,6 +55,8 @@
       h2:hover a,
       h3:hover a,
       h4:hover a,
+      h5:hover a,
+      h6:hover a,
       p:hover a {
         display: inline;
       }
@@ -62,7 +64,9 @@
       h1:before,
       h2:before,
       h3:before,
-      h4:before {
+      h4:before,
+      h5:before,
+      h6:before {
         white-space: pre;
       }
       
@@ -96,10 +100,28 @@
 
       h4 {
         counter-increment: subsubarticle;
+        counter-reset: paragraph;
       }
 
       h4:before {
         content: counter(article) "." counter(subarticle) "." counter(subsubarticle) "\A0\A0";
+      }
+
+      h5 {
+        counter-increment: paragraph;
+        counter-reset: subparagraph;
+      }
+
+      h5:before {
+        content: counter(article) "." counter(subarticle) "." counter(subsubarticle) "." counter(paragraph) "\A0\A0";
+      }
+
+      h6 {
+        counter-increment: subparagraph;
+      }
+
+      h6:before {
+        content: counter(article) "." counter(subarticle) "." counter(subsubarticle) "." counter(paragraph) "." counter(subparagraph) "\A0\A0";
       }
 
       @media handheld and (max-width: 480px), screen and (max-device-width: 480px), screen and (max-width: 767px) {
@@ -112,14 +134,13 @@
         }
       }
       
+      ol li:before { float: left; margin-left: -1.8em; }
       ol { counter-reset: ol1; list-style-type: none; }
-      ol li:before {
-        float: left;
-        margin-left: -1.8em;
-      }
-      ol > li:before { counter-increment: ol1; content: "(" counter(ol1, lower-alpha) ")"; }
+      ol > li:before { counter-increment: ol1; content: "(" counter(ol1) ")"; }
       ol > li > ol { counter-reset: ol2; list-style-type: none; }
-      ol > li > ol > li:before { counter-increment: ol2; content: "(" counter(ol2, lower-roman) ")"; }
+      ol > li > ol > li:before { counter-increment: ol2; content: "(" counter(ol2, lower-alpha) ")"; }
+      ol > li > ol > li > ol { counter-reset: ol3; list-style-type: none; }
+      ol > li > ol > li > ol > li:before { counter-increment: ol3; content: "(" counter(ol3, lower-roman) ")"; }
     </style>
     <script>
 window.onload = function() {
@@ -132,9 +153,9 @@ window.onload = function() {
   );
 
   var count = {
-    h2: 0,
     h3: 0,
     h4: 0,
+    h5: 0,
     ol: -1
   }
 
@@ -152,19 +173,19 @@ window.onload = function() {
     if (treeWalker.currentNode.tagName == "H1") {
       createHrefAfter(treeWalker.currentNode);
     } else if (treeWalker.currentNode.tagName == "H2") {
-      lastId = treeWalker.currentNode.id = "" + ++count.h2;
+      lastId = treeWalker.currentNode.id = "" + ++count.h3;
       createHrefAfter(treeWalker.currentNode);
-      count.h3 = count.h4 = 0;
+      count.h4 = count.h5 = 0;
       count.ol = -1;
       ol = [];
     } else if (treeWalker.currentNode.tagName == "H3") {
-      lastId = treeWalker.currentNode.id = count.h2 + "." + (++count.h3);
+      lastId = treeWalker.currentNode.id = count.h3 + "." + (++count.h4);
       createHrefAfter(treeWalker.currentNode);
-      count.h4 = 0;
+      count.h5 = 0;
       count.ol = -1;
       ol = [];
     } else if (treeWalker.currentNode.tagName == "H4") {
-      lastId = treeWalker.currentNode.id = count.h2 + "." + count.h3 + "." + (++count.h4);
+      lastId = treeWalker.currentNode.id = count.h3 + "." + count.h4 + "." + (++count.h5);
       createHrefAfter(treeWalker.currentNode);
       count.ol = -1; ol = [];
     } else if (treeWalker.currentNode.tagName == "LI") {
@@ -206,6 +227,8 @@ window.onload = function() {
     var out = [];
     for (var i = 0; i < ol.length; ++i) {
       if (i == 0) {
+        out.push(ol[i]);
+      } else if (i == 1) {
         out.push(alpha[ol[i]]);
       } else {
         out.push(roman[ol[i]]);
@@ -223,46 +246,145 @@ window.onload = function() {
         <img src="ppauLogo-australia.png" alt="Pirate Party Australia logo">
       </div>
       <div class='title'>Party Constitution</div>
-      <div class='date'>1 August, 2012</div>
+      <div class='date'>25 July, 2013</div>
     </div>
     <hr>
-    <h1 id="principles-and-objects-of-the-party">Principles &amp; Objects of the Party</h1>
-<p>Pirate Party Australia strives to achieve the freedom of culture, the protection of civil liberties and inalienable rights of the nation’s citizens and to protect the freedoms of the newly evolving global information society. It is these values that the party seeks to have embedded within the laws and institutions of Australia.</p>
-<p>The growing surveillance of the citizen offends the very notions of a liberal and open democracy. Overbearing and restrictive private monopolies constructed via regimes of antiquated, unfair and unbalanced laws which prevent the free development of culture and ideas are detrimental to financial, economic and cultural outcomes for the citizens of Australia. Changing these laws, and ensuring the protection of these values are the goals of the Pirate Party Australia.</p>
-<p>Founded on the same principles as other International Pirate Parties, it is part of a global movement against increasingly draconian copyright and patent laws, and the erosion of the right to privacy. The basic tenets of this movement are Free Culture, Civil Liberty and Intellectual Rights Reform.</p>
-<p>The Party does not seek to become part of the administration, but a mediator in parliamentary deadlocks, and to provide representation for the emergent information society, to guard the civil liberties of the citizen by utilising this power to further the party agenda, and as such intends to contest Australian Federal Elections in both the House of Representatives and Senate.</p>
+<h1 id="part-i">Principles &amp; Objects of the Party</h1>
+<p>Pirate Party Australia strives to protect and expand civil and digital liberties, social equality and freedom of culture. We seek to safeguard the inalienable rights of all natural persons of Australia and the freedoms of the emergent global information society. The Party seeks to have these values reflected in the laws and institutions of Australia.</p>
+<p>The growing surveillance of the citizen offends the very notions of a liberal and open democracy. Overbearing and restrictive private monopolies constructed via regimes of antiquated, unfair and unbalanced laws which prevent the free development of culture and ideas are detrimental to financial, economic and cultural outcomes for the citizens of Australia. Changing these laws, and ensuring the protection of these values are the goals of Pirate Party Australia.</p>
+<p>Founded on the same principles as other International Pirate Parties, it is part of a global movement against increasingly draconian copyright and patent laws, and the erosion of the right to privacy. The basic tenets of this movement are free culture, civil liberty and intellectual rights reform.</p>
+<p>The Party seeks to represent the emerging digital society and offer a new form of politics driven from the grassroots. We believe in exploring the potential of participatory and deliberative democracy, and finding new ways to promote trust between citizens and the state through greater transparency and open government. The Party intends to contest Australian Federal Elections in both the House of Representatives and Senate.</p>
 <p>An elected representative of the party must not vote for or compromise on any legislation that impinges on or compromises the rights stated here in this constitution.</p>
-<p>Objectives of the Pirate Party Australia also include:</p>
+<p>Objectives of Pirate Party Australia also include:</p>
 <ul>
 <li><p>To construct, advocate and implement policies in accordance with the principles stated within this constitution; and</p></li>
 <li><p>To generally educate and bring awareness to the issues that are stated within this constitution; and</p></li>
 <li><p>To educate and encourage other political entities to adopt our objectives, whether that be through advocacy or preference allocation.</p></li>
 </ul>
-<p>The Pirate Party Australia firmly holds belief in democracy, and rejects any use of force, intimidation or physical violence as the means to achieving political goals. We vehemently reject any and all forms of political or public corruption.</p>
-<h1 id="articles-of-the-constitution">Articles of the Constitution</h1>
-<h2 id="name-and-principles-and-constitution">Name and Principles and Constitution</h2>
-<p>The name of the party will be <q>Pirate Party Australia</q>, also known as <q>The Pirate Party of Australia</q>, or <q>Pirate Party</q>, and from hereinafter in this document shall be referred to as the <q>PPAU</q>. The principles and objects of the PPAU are stated in Part I, and are fundamental to the purpose of the party. All party documents, members and policies are subject and subordinate to this constitution.</p>
-<h2 id="structure-composition">Structure &amp; Composition</h2>
+<p>Pirate Party Australia firmly holds belief in democracy, and rejects any use of force, intimidation or physical violence as the means to achieving political goals. We vehemently reject any and all forms of political or public corruption.</p>
+<h1 id="part-ii">Articles of the Constitution</h1>
+<h2>Name, Principles and Constitution</h2>
 <ol>
-<li><p>The Party shall be governed at a Federal level by a body entitled the <q>National Council</q>. The National Council may create additional structures, such as a National Executive, Parliamentary Party, Women Pirates Committee and Young Pirates Party or such other structures as it sees fit.</p></li>
+<li><p>The name of the party will be “Pirate Party Australia”, also known as “the Pirate Party”. Pirate Party Australia may be referred to as “PPAU” internally. From hereinafter in this document, Pirate Party Australia shall be referred to as either “Pirate Party Australia” or “the Party”. The principles and objects of Pirate Party Australia are stated in Part I, and are fundamental to the purpose of the Party. All party documents, members and policies are subject and subordinate to this constitution.</p></li>
+</ol>
+<h2>Structure &amp; Composition</h2>
+<ol>
+<li><p>The Party shall be governed at a Federal level by a body entitled the “National Council”. The National Council may create additional structures, such as a National Executive, Parliamentary Party, Women Pirates Committee and Young Pirates Party or such other structures as it sees fit.</p></li>
 <li><p>The National Council shall be comprised of those persons formally elected to positions elaborated on within this constitution.</p></li>
 <li><p>Those members who form the National Council are to be elected from those eligible persons as elaborated within this constitution, and are to be elected after deliberation at an annual National Congress, for a period of no more than twelve months.</p></li>
-<li><p>The elected members of the National Council shall appoint to the National Council a Party Agent in accordance with Article 8. The Party Agent will fulfil the obligations and duties of the role as provided by the Commonwealth Electoral Act 1918.</p></li>
-<li><p>The National Council, as the paramount governing body of the PPAU, has authority to overrule or amend policy of any subordinate organisation (except those policies of the Dispute Resolution Committee), or decisions of that subordinate organisation (except those determinations made by the Dispute Resolution Committee), if it deems them to be inconsistent with, or it perceives that policy or organisation to be repugnant to the policy of the National Council’s policies, or the values and ideals of the PPAU. A two thirds majority vote of the National Council is required for any such action to be taken against a subordinate organisation or their decisions.</p></li>
+<li><p>The elected members of the National Council shall appoint to the National Council a Party Agent in accordance with Article 3 and Article 9. The Party Agent will fulfil the obligations and duties of the role as provided by the Commonwealth Electoral Act 1918.</p></li>
+<li><p>The National Council, as the paramount governing body of the Party, has authority to overrule or amend policy of any subordinate organisation (except those policies of the Dispute Resolution Committee), or decisions of that subordinate organisation (except those determinations made by the Dispute Resolution Committee), if it deems them to be inconsistent with, or it perceives that policy or organisation to be repugnant to the policy of the National Council’s policies, or the values and ideals of the Party. A two thirds majority vote of the National Council is required for any such action to be taken against a subordinate organisation or their decisions.</p></li>
 </ol>
-<h2 id="membership">Membership</h2>
-<h3 id="full-membership">Full Membership</h3>
-<h4 id="full-membership-is-open-to">Full Membership is open to:</h4>
+<h3>State and Territory Branches</h3>
 <ol>
-<li><p>All natural persons who;</p>
+<li><p>A State or Territory Branch is considered a subordinate organisation of the Party for the purposes of this Constitution.</p></li>
+<li><p>Such branches would exist for the purpose of competing in state/territory elections, and relevant local elections of their region.</p></li>
+<li><p>The National Council or National Congress may, at its discretion, opt to offer a mandate to form a state or territory branch to the State/Territory Coordinator of the given state/territory.</p></li>
+<li><p>A State or Territory Branch may not contradict a Federal policy, but may expand their policy set beyond the scope of the Federal Party.</p></li>
+<li><p>It is mandatory that members of the Federal Party are members of their local State or Territory Branch, and vice versa.</p></li>
+<li><p>No State or Territory Branch may enact or enforce policies that contradict this Constitution.</p></li>
+</ol>
+<h2>National Council</h2>
+<ol>
+<li><p>Members of the National Council shall be referred to as Councillors.</p></li>
+</ol>
+<h3>Powers</h3>
+<h4>Refusal, Suspension and Expulsion</h4>
+<ol>
+<li><p>The National Council may refuse to accept an application for membership by any individual on the grounds that the acceptance of the membership may be prejudicial to the interests or values of the Party.</p></li>
+<li><p>The National Council also has the power to suspend or expel a member should that individual’s membership or actions whilst a member be prejudicial to the interests of the Party.</p></li>
+<li><p>Any refusal to admit a person as a member, and any suspension or expulsion of a member, shall be accompanied by a written statement of reasons for the action, and this statement is to be made available to all membership (unless requested to be kept confidential by the member affected).</p></li>
+<li><p>A refusal of an application for membership, or the suspension or expulsion of any member may only be decided by a two thirds majority vote of the National Council.</p></li>
+</ol>
+<h3>Quorum</h3>
+<ol>
+<li><p>Unless otherwise provided within this constitution, no question regarding Party business is to be decided or resolved at a meeting of the National Council unless at least five (5) members or two thirds of the National Council are present, whichever number is greater.</p>
+<ol>
+<li><p>Voting requirements for majorities are taken to mean the entire membership of the National Council.</p></li>
+<li><p>A Councillor may add their contribution to quorum if they are unable to attend, but only for specified issues, by express, written consent.</p>
+<ol>
+<li><p>The vote may only be applied where the exact motion text was known to the Councillor in advance, and the vote is for the unmodified text.</p></li>
+<li><p>Written consent should be included within the minutes.</p></li>
+</ol></li>
+</ol></li>
+</ol>
+<h3>Positions</h3>
+<h4>President</h4>
+<h5>Duties and Responsibilities</h5>
+<ol>
+<li><p>Lead the Party.</p></li>
+<li><p>Chair the National Congress, and meetings of the National Council.</p></li>
+<li><p>Co-ordinate the activities of the National Council.</p></li>
+</ol>
+<h4>Deputy President</h4>
+<h5>Duties and Responsibilities</h5>
+<ol>
+<li><p>Assist the President with their duties in accordance with this constitution.</p></li>
+<li><p>If the President is unable (on a temporary basis) to conduct their obligations under the constitution, the Deputy is to substitute and fulfil those obligations.</p></li>
+</ol>
+<h4>Party Secretary</h4>
+<h5>Duties and Responsibilities</h5>
+<ol>
+<li><p>The Party Secretary fulfils the requirements and obligations of the position of the same name defined in the Commonwealth Electoral Act 1918.</p></li>
+<li><p>Provide notice in advance to members of all official meetings, and of the National Congress.</p></li>
+<li><p>Prepare schedules, agenda, and correspondence from members for submission to the meeting or National Congress, and record attendance of persons present, and arrange for minutes or logs to be recorded.</p></li>
+<li><p>Co-ordinate official correspondence of the National Council.</p></li>
+<li><p>Maintain the party register, in accordance with Commonwealth Electoral Act 1918.</p></li>
+<li><p>Maintain custody of all documents, statements and records of the Party, and except for those documents that are otherwise accounted for in this constitution, by other officers.</p></li>
+<li><p>Briefly minute, or delegate responsibility for minuting, listing the decisions of meetings of the National Congress and National Council and ensure publication at the earliest possible convenience.</p></li>
+</ol>
+<h4>Deputy Party Secretary</h4>
+<h5>Duties and Responsibilities</h5>
+<ol>
+<li><p>Assist the Party Secretary with their duties in accordance with this constitution.</p></li>
+<li><p>If the Party Secretary is unable (on a temporary basis) to conduct their obligations under the constitution, the Deputy is to substitute and fulfil those obligations.</p></li>
+</ol>
+<h4>Treasurer</h4>
+<h5>Duties and Responsibilities</h5>
+<ol>
+<li><p>The receipt of all monies paid to the Party, the issuing of all receipts and the deposit of such monies into accounts determined by the National Council.</p></li>
+<li><p>Develop and ensure security and accountability measures for all receipts and payments are followed.</p></li>
+<li><p>Submit an Annual Financial Report to the National Congress, detailing balance sheets, financial statements and relevant particulars.</p></li>
+<li><p>Maintain adequate controls over Party finances and all financial records, documents, securities ensuring smooth transition when position is transferred.</p></li>
+<li><p>Ensure that all book keeping is conducted by an appropriately skilled person, and all documents conform to relevant legislation and regulations and this Constitution.</p></li>
+</ol>
+<h4>Deputy Treasurer</h4>
+<h5>Duties and Responsibilities</h5>
+<ol>
+<li><p>Assist the Treasurer with their duties in accordance with this constitution.</p></li>
+<li><p>If the Treasurer is unable (on a temporary basis) to conduct their obligations under the constitution, the Deputy is to substitute and fulfil those obligations.</p></li>
+</ol>
+<h4>Registered Officer</h4>
+<h5>Duties and Responsibilities</h5>
+<ol>
+<li><p>The Registered Officer fulfils the requirements and obligations of the position of the same name defined in the Commonwealth Electoral Act 1918.</p></li>
+<li><p>The Registered Officer will fulfil the requirements and obligations of the Party Agent as defined in the Commonwealth Electoral Act 1918.</p></li>
+<li><p>At the National Congress, up to five candidates for the position of Registered Officer may be nominated and voted upon by the members. Each candidate that attracts at least 10% of the votes cast for Registered Officer by the Members will then be presented to the National Council for consideration. The National Council will then vote (by 2/3rd majority) to select one of those presented candidates as the Registered Officer.</p></li>
+</ol>
+<h4>Councillors</h4>
+<ol>
+<li><p>Two (2) Councillors will be appointed by election at the National Congress to the National Council.</p></li>
+</ol>
+<h5>Duties and Responsibilities</h5>
+<ol>
+<li><p>The responsibilities of the Councillors will be determined by the National Council.</p></li>
+</ol>
+<h2>Membership</h2>
+<h3>Eligibility</h3>
+<ol>
+<li><p>Membership is open to all natural persons who:</p>
 <ol>
 <li><p>Have read and agreed to the terms and principles provided within this constitution;</p></li>
 <li><p>Pay an annual membership fee, if applicable, as set by the National Council;</p></li>
-<li><p>Are not currently members of any other registered political party and do not join another party whilst a member of the PPAU; and</p></li>
-<li><p>Have not been members of another registered political party in the previous twelve (12) months unless permission is granted in writing (in their absolute discretion) by a majority of the National Council.</p></li>
+<li><p>Are not currently members of any other registered political party in Australia and do not join another party in Australia while a member of the Party; and</p></li>
+<li><p>Have not been members of another registered political party in Australia in the previous twelve (12) months unless permission is granted in writing (in their absolute discretion) by a majority of the National Council.</p></li>
 </ol></li>
+<li><p>A Member’s Party membership will only lapse if the member fails to pay their annual membership fee for more than two consecutive years. The National Council will give thirty days written notice to the last known postal or email address of the member in advance of declaring that membership to have lapsed. Such a lapsed membership may be re-activated during its third year of lapse by that Member paying out of their own pocket their outstanding membership fees. A member may notify the National Council that they wish to resign their membership of the Party by giving sixty (60) days signed written notice.</p></li>
 </ol>
-<h4 id="all-full-members-are-entitled-to">All Full Members are entitled to:</h4>
+<h3>Categories of Membership</h3>
+<h4>Full Membership</h4>
+<ol>
+<li><p>Full Members are entitled to:</p>
 <ol>
 <li><p>Be elected into a formal position within the party, at any level;</p></li>
 <li><p>Where eligible, and approved by the nomination processes within this constitution, stand as a candidate in any election the party contests;</p></li>
@@ -270,32 +392,32 @@ window.onload = function() {
 <li><p>Participate in policy and issue discussion, debate and partake in the decision making process in accordance with this constitution;</p></li>
 <li><p>Participate in working groups defined by the National Council or any organ of the Party; and</p></li>
 <li><p>Vote at Party Meetings, Congresses and Policy Formulation, Development and Adoption proceedings.</p></li>
-<li><p>A Member’s Party membership will only lapse if the member fails to pay their annual membership fee for more than two consecutive years. The National Council will give thirty days written notice to the last known postal or email address of the member in advance of declaring that membership to have lapsed. Such a lapsed membership may be re-activated during its third year of lapse by that Member paying out of their own pocket their outstanding membership fees. A member may notify the National Council that they wish to resign their membership of the Party by giving sixty (60) days signed written notice.</p></li>
-</ol>
-<h3 id="additional-categories-of-membership">Additional Categories of Membership:</h3>
-<p>A majority vote of the National Council may propose to existing members the creation of additional categories of Membership of the Party. A quorum of 10% of the entire existing membership is necessary for such a vote, which will be decided by simple majority of those members.</p>
-<h3 id="recruitment-of-members">Recruitment of Members</h3>
-<p>The National Council may specify rules to prevent the abusive recruitment of new members into the Party or abusive renewal of memberships.</p>
-<h3 id="founding-members">Founding Members</h3>
-<ol>
-<li><p>Founding Members will pay a fee of $20.00 to the party;</p>
-<ol>
-<li><p>within sixty (60) days of application;</p></li>
-<li><p>that will be offset against any applicable membership dues set in the first year by the National Council.</p></li>
 </ol></li>
 </ol>
-<h3 id="national-council-powers">National Council Powers</h3>
-<h4 id="refusal-suspension-and-expulsion">Refusal, Suspension and Expulsion</h4>
+<h4>Associate Membership</h4>
 <ol>
-<li><p>The National Council may refuse to accept an application for membership by any individual on the grounds that the acceptance of the membership may be prejudicial to the interests or values of the PPAU.</p></li>
-<li><p>The National Council also has the power to suspend or expel a member should that individual’s membership or actions whilst a member be prejudicial to the interests of the PPAU.</p></li>
-<li><p>Any refusal to admit a person as a member, and any suspension or expulsion of a member, shall be accompanied by a written statement of reasons for the action, and this statement is to be made available to all membership (unless requested to be kept confidential by the member affected).</p></li>
-<li><p>A refusal of an application for membership, or the suspension or expulsion of any member may only be decided by a two thirds majority vote of the National Council.</p></li>
+<li><p>Associate Members are entitled to the same privileges as Full Members, except they:</p>
+<ol>
+<li><p>Are ineligible for National Council and Dispute Resolution Committee positions;</p></li>
+<li><p>May not lead any committee;</p></li>
+<li><p>Do not have voting rights, but have the ability to motion through the sponsorship of a Full Member; and</p></li>
+<li><p>Are not eligible to stand as a candidate in any election the Party contests.</p></li>
+</ol></li>
 </ol>
-<h2 id="policy-formulation-development-and-adoption">Policy Formulation, Development and Adoption</h2>
-<h3 id="development">Development</h3>
-<ol><li><p>Policy development should occur with the maximum possible interaction with the party members - the party should engage in as a participatory process as is possible, and outcomes should be reached through consensus.</p></li></ol>
-<h3 id="adoption">Adoption</h3>
+<h3>Additional Categories of Membership</h3>
+<ol>
+<li><p>A majority vote of the National Council may propose to existing members the creation of additional categories of Membership of the Party. A quorum of 10% of the entire existing membership is necessary for such a vote, which will be decided by simple majority of those members.</p></li>
+</ol>
+<h3>Recruitment of Members</h3>
+<ol>
+<li><p>The National Council may specify rules to prevent the abusive recruitment of new members into the Party or abusive renewal of memberships.</p></li>
+</ol>
+<h2>Policy Formulation, Development and Adoption</h2>
+<h3>Development</h3>
+<ol>
+<li><p>Policy development should occur with the maximum possible interaction with the party members - the party should engage in as a participatory process as is possible, and outcomes should be reached through consensus.</p></li>
+</ol>
+<h3>Adoption</h3>
 <ol>
 <li><p>New policy, unless dictated by circumstances of urgency, shall be decided on at the National Congress.</p></li>
 <li><p>New policy should be agreed upon by a general consensus. However, if a majority of the National Council votes that there is an the absence of a general consensus, a two-thirds majority of all votes cast by the members must be in the affirmative for new policy to be adopted.</p></li>
@@ -303,11 +425,15 @@ window.onload = function() {
 <li><p>A policy will not be adopted if it is inconsistent with Part I of this constitution.</p></li>
 <li><p>All policies adopted by the National Congress will be recorded in a central register available to all Members.</p></li>
 </ol>
-<h3 id="policy-review">Policy Review</h3>
+<h3>Policy Review</h3>
 <ol>
 <li><p>Where not less than 15% of Full Members petition the National Council, a policy will come under official review by the party, where that policy will be reviewed and voted upon at the National Congress.</p></li>
 </ol>
-<h2 id="meeting-procedure-and-requirements">Meeting Procedure and Requirements</h2>
+<h3>Positions on issues outside of Platform</h3>
+<ol>
+<li><p>No member of the Party may imply that a personal position on issues outside of the scope of the Party principles, platform or policies is the position of the Party.</p></li>
+</ol>
+<h2>Meeting Procedure and Requirements</h2>
 <ol>
 <li><p>Meetings should be structured so as to allow all members to participate, and have their opinions acknowledged.</p></li>
 <li><p>All members should be notified at least 24 hours in advance of any official meeting of the National Council and at least seven days in advance of the National Congress, and of the intended agenda of such meetings.</p></li>
@@ -317,16 +443,28 @@ window.onload = function() {
 <li><p>The method of voting is to be determined by the meeting facilitator and the medium by which the meeting occurs.</p></li>
 <li><p>The minutes of a meeting should be distributed to the Members within seven days of the meeting. The National Council may specify procedures for the collection and dissemination of such minutes.</p></li>
 <li><p>The National Council may specify additional meetings procedures.</p></li>
+<li><p>All officer elections, constitutional amendment proposals, platform amendment proposals, policy amendment proposals, and mergers, affiliations or unaffiliations that pass a majority vote of those present at the National Congress must be ratified by a majority vote of all Full Members using an online voting system.</p>
+<ol>
+<li><p>The voting period must not be less than seven (7) days.</p></li>
+</ol></li>
 </ol>
-<h3 id="national-congress">National Congress</h3>
+<h3>National Congress</h3>
 <ol>
 <li><p>The National Council will organise the National Congress.</p></li>
-<li><p>The PPAU will hold a National Congress within 12 months of its previous National Congress.</p></li>
+<li><p>The Party will hold a National Congress within 12 months of its previous National Congress.</p></li>
 <li><p>If at least 25% of the members petition the National Council in writing expressing their lack of confidence in the National Council, the National Council shall organise an emergency National Congress of the Members within thirty (30) days.</p></li>
+<li><p>The National Congress has the exclusive right, by majority vote, to allow the Party to merge with, affiliate with or unaffiliate with any other organisation.</p></li>
 </ol>
-<h3 id="pre-selection-of-candidates-for-election-to-federal-parliament">Pre-Selection of Candidates for Election to Federal Parliament</h3>
+<h3>Preselection Meeting</h3>
 <ol>
-<li><p>All Members seeking to stand as candidates for election to Federal Parliament must be nominated at the National Congress and seconded by another member.</p></li>
+<li><p>The National Council will organise the Preselection Meeting.</p></li>
+<li><p>The Preselection Meeting may be an independent meeting, or may coincide with the National Congress or another meeting.</p></li>
+<li><p>Multiple Preselection Meetings may be held where deemed appropriate by the National Council in the lead up to an election.</p></li>
+<li><p>The National Council may determine that a separate Preselection Meeting may be held for each specific geographic area.</p></li>
+</ol>
+<h3>Pre-Selection of Candidates for Election to Federal Parliament</h3>
+<ol>
+<li><p>All Members seeking to stand as candidates for election to Federal Parliament must be nominated at a Preselection Meeting and seconded by another member.</p></li>
 <li><p>The National Council will determine whether all members (or a geographical sub-set of members) will vote to select candidates for election to Federal Parliament.</p></li>
 <li><p>All members seeking to stand as candidates must submit to the National Congress a detailed and truthful statement as to their suitability for election.</p></li>
 <li><p>The National Council may establish procedures for the vetting of candidates backgrounds and must publish these procedures to the Membership.</p></li>
@@ -336,31 +474,38 @@ window.onload = function() {
 <li><p>I hereby pledge to advance and adhere to the platform and ideals of Pirate Party Australia, both during the election campaign and upon election to Parliament.</p></li>
 </ol></li>
 </ol>
-<h2 id="financial-structure">Financial Structure</h2>
-<h3 id="property">Property</h3>
+<h2>Financial Structure</h2>
+<h3>Property</h3>
 <ol>
-<li><p>All property and resources of the PPAU are to be used solely for the purposes of promoting and achieving the principles and goals stated within this constitution.</p></li>
-<li><p>All Members, upon request to the National Council, may have access to the latest financial reports of the PPAU.</p></li>
-<li><p>All bank accounts of the PPAU will:</p>
+<li><p>All property and resources of the Party are to be used solely for the purposes of promoting and achieving the principles and goals stated within this constitution.</p></li>
+<li><p>All Members, upon request to the National Council, may have access to the latest financial reports of the Party.</p></li>
+<li><p>All bank accounts of the Party will:</p>
 <ol>
 <li><p>be held separately from those of its members;</p></li>
 <li><p>require more than one signatory for the disbursement of funds; and</p></li>
-<li><p>include the wording PPAU in their title.</p></li>
+<li><p>include the wording Pirate Party in their title.</p></li>
 </ol></li>
-<li><p>All accounts of the PPAU will be audited annually and the auditor’s report published to the members at the National Congress.</p></li>
-</ol>
-<h2 id="constitutional-amendments-interpretation-and-by-laws">Constitutional Amendments, Interpretation and By-Laws</h2>
-<h3 id="amendments">Amendments</h3>
+<li><p>All non-banking financial accounts (for example, PayPal) of the Party will:</p>
 <ol>
-<li><p>The constitution may only be amended during the National Congress. Amendments require a two-thirds majority vote with a quorum of fourteen percent of Members at the time the amendment was proposed.</p></li>
+<li><p>be held separately from those of its members;</p></li>
+<li><p>have multiple signatories/user accounts linked to the account, if possible;</p></li>
+<li><p>move all funds into the bank accounts as soon as feasible; and</p></li>
+<li><p>have all records published annually.</p></li>
+</ol></li>
+<li><p>All accounts of the Party will be audited annually and the auditor’s report published to the members at the National Congress.</p></li>
+</ol>
+<h2>Constitutional Amendments, Interpretation and By-Laws</h2>
+<h3>Amendments</h3>
+<ol>
+<li><p>The constitution may only be amended during the National Congress. Amendments require a two-thirds majority vote with a quorum of sixteen (16) percent of Members at the time the amendment was proposed.</p></li>
 <li><p>Any proposals for amendments must be notified in writing to the members at least 28 days prior to the National Congress.</p></li>
-<li><p>At each subsequent National Congress, the members will vote on whether to raise the quorum in Article 7, clause 1 by an additional two (2) percent (eg from 10% to 12% to 14%, etc). In the event that the Members do not vote in favour of that increase, then this clause will lapse.</p></li>
+<li><p>At each subsequent National Congress, the members will vote on whether to raise the quorum in Article 8, clause 1 by an additional two (2) percent (eg from 10% to 12% to 14%, etc). In the event that the Members do not vote in favour of that increase, then this clause will lapse.</p></li>
 </ol>
-<h3 id="interpretation">Interpretation</h3>
+<h3>Interpretation</h3>
 <ol>
-<li><p>Where a dispute may arise with regards to the interpretation of this constitution, the Dispute Resolution Committee shall in accordance with Article 10 make a determination with regards to the dispute.</p></li>
+<li><p>Where a dispute may arise with regards to the interpretation of this constitution, the Dispute Resolution Committee shall in accordance with Article 11 make a determination with regards to the dispute.</p></li>
 </ol>
-<h3 id="power-to-make-by-laws">Power to Make By-Laws</h3>
+<h3>Power to Make By-Laws</h3>
 <ol>
 <li><p>The National Council:</p>
 <ol>
@@ -369,80 +514,31 @@ window.onload = function() {
 <li><p>Must keep a register of all such by-laws which shall be available to members on request.</p></li>
 </ol></li>
 </ol>
-<h3 id="operational-and-temporary-amendments">Operational and Temporary Amendments</h3>
+<h3>Operational and Temporary Amendments</h3>
 <ol>
 <li><p>A three-quarters majority of the National Council is empowered to make alterations to the constitution where circumstances of urgency dictate, or where it is necessary for party operation.</p></li>
 <li><p>Such alterations are temporary, and are considered proposed amendments and as such must be voted upon by Members at the next National Congress, where (if approved) they shall become amendments; and</p></li>
-<li><p>If such an amendment does not receive the necessary majority as stipulated at Article 7 (1), then such a proposed amendment will lapse and may only be resurrected by a majority vote of the members at a National Congress.</p></li>
+<li><p>If such an amendment does not receive the necessary majority as stipulated at Article 8.1, then such a proposed amendment will lapse and may only be resurrected by a majority vote of the members at a National Congress.</p></li>
 </ol>
-<h2 id="officers-and-party-officials">Officers and Party Officials</h2>
-<h3 id="election">Election</h3>
+<h2>Councillors, Officers and Party Officials</h2>
+<h3>Election</h3>
 <ol>
 <li><p>The positions stated within this constitution will be appointed by election through a vote by the Members at the National Congress, for a term not exceeding twelve (12) months, and shall form the National Council. Their term shall begin at the National Congress at which they are elected and end at the next National Congress.</p></li>
-<li><p>Those members that nominate themselves, or are nominated, for a position on the National Council must consent in writing to their nomination.</p></li>
-<li><p>No more than two officer positions may be filled by one member of the National Council.</p></li>
+<li><p>Those members that nominate themselves, or are nominated, for a position on the National Council, working group or committee must consent in writing to their nomination.</p></li>
+<li><p>No more than one National Council position may be filled by one member, except in cases where a position is subject to a temporary vacancy and pending a permanent appointment.</p></li>
 <li><p>In the event a member of the National Council is unable or unwilling to perform their duties, the remaining members of the National Council may declare the position vacant and appoint an interim replacement by two-thirds majority vote of the remaining members of the National Council. The next National Congress will then elect a Member to fill that vacant position.</p></li>
 <li><p>The method for voting by members at the National Congress will be optional preferential voting, with the method for the next Congress determined by motion at the National Congress. The voting method carries until the next National Congress if a two-thirds majority of members present at the Congress is not met for an alternatively proposed method.</p></li>
 <li><p>Each member is only entitled to vote once in each election.</p></li>
+<li><p>Candidates for any electable position or appointment within the Party must present a declaration of any potential conflicts of interest prior to the election or appointment taking place.</p></li>
 </ol>
-<h3 id="president">President</h3>
-<h4 id="duties-and-responsibilities">Duties and Responsibilities</h4>
-<ol>
-<li><p>Lead the PPAU.</p></li>
-<li><p>Chair the National Congress, and meetings of the National Council.</p></li>
-<li><p>Co-ordinate the activities of the National Council.</p></li>
-</ol>
-<h3 id="deputy-president">Deputy President</h3>
-<h4 id="duties-and-responsibilities-1">Duties and Responsibilities</h4>
-<ol>
-<li><p>Assist the President with their duties in accordance with this constitution.</p></li>
-<li><p>If the President is unable (on a temporary basis) to conduct their obligations under the constitution, the Deputy is to substitute and fulfil those obligations.</p></li>
-</ol>
-<h3 id="party-secretary">Party Secretary</h3>
-<h4 id="duties-and-responsibilities-2">Duties and Responsibilities</h4>
-<ol>
-<li><p>Provide notice in advance to members of all official meetings, and of the National Congress.</p></li>
-<li><p>Prepare schedules, agenda, and correspondence from members for submission to the meeting or National Congress, and record attendance of persons present, and arrange for minutes or logs to be recorded.</p></li>
-<li><p>Co-ordinate official correspondence of the National Council.</p></li>
-<li><p>Maintain the party register, in accordance with Commonwealth Electoral Act 1918.</p></li>
-<li><p>Maintain custody of all documents, statements and records of the PPAU, and except for those documents that are otherwise accounted for in this constitution, by other officers.</p></li>
-<li><p>Briefly minute, or delegate responsibility for minuting, listing the decisions of meetings of the National Congress and National Council and ensure publication at the earliest possible convenience.</p></li>
-</ol>
-<h3 id="deputy-party-secretary">Deputy Party Secretary</h3>
-<h4 id="duties-and-responsibilities-3">Duties and Responsibilities</h4>
-<ol>
-<li><p>Assist the Party Secretary with their duties in accordance with this constitution.</p></li>
-<li><p>If the Party Secretary is unable (on a temporary basis) to conduct their obligations under the constitution, the Deputy is to substitute and fulfil those obligations.</p></li>
-</ol>
-<h3 id="treasurer">Treasurer</h3>
-<h4 id="duties-and-responsibilities-4">Duties and Responsibilities</h4>
-<ol>
-<li><p>The receipt of all monies paid to the PPAU, the issuing of all receipts and the deposit of such monies into accounts determined by the National Council.</p></li>
-<li><p>Develop and ensure security and accountability measures for all receipts and payments are followed.</p></li>
-<li><p>Submit an Annual Financial Report to the National Congress, detailing balance sheets, financial statements and relevant particulars.</p></li>
-<li><p>Maintain adequate controls over PPAU finances and all financial records, documents, securities ensuring smooth transition when position is transferred.</p></li>
-<li><p>Ensure that all book keeping is conducted by an appropriately skilled person, and all documents conform to relevant legislation and regulations and this Constitution.</p></li>
-</ol>
-<h3 id="deputy-treasurer">Deputy Treasurer</h3>
-<h4 id="duties-and-responsibilities-5">Duties and Responsibilities</h4>
-<ol>
-<li><p>Assist the Treasurer with their duties in accordance with this constitution.</p></li>
-<li><p>If the Treasurer is unable (on a temporary basis) to conduct their obligations under the constitution, the Deputy is to substitute and fulfil those obligations.</p></li>
-</ol>
-<h3 id="party-agent">Party Agent</h3>
-<h4 id="duties-and-responsibilities-6">Duties and Responsibilities</h4>
-<ol>
-<li><p>A member elected by the National Council in accordance with this constitution will act as Party Agent, so as to fulfil the requirements and obligations of the Commonwealth Electoral Act 1918.</p></li>
-<li><p>At the National Congress, up to five candidates for the position of Party Agent may be nominated and voted upon by the members. Each candidate that attracts at least 10% of the votes cast for Party Agent by the Members will then be presented to the National Council for consideration. The National Council will then vote (by 2/3rd majority) to select one of those presented candidates as the Party Agent.</p></li>
-</ol>
-<h2 id="constitution-not-enforceable-in-law">Constitution Not Enforceable in Law</h2>
+<h2>Constitution Not Enforceable in Law</h2>
 <ol>
 <li><p>In this Article, Constitution means all constituent documents of the Party, all resolutions of the National Congress and all resolutions of the National Council relating to the structure and organisation of the Party.</p></li>
 <li><p>It is intended that the Constitution and everything done in connection with it, all arrangements relating to it (whether express or implied) and any agreement or business entered into or payment made under the National Constitution will not bring about any legal relationship, rights, duties or outcome of any kind, or be enforceable by law, or be the subject of legal proceedings. Instead, all arrangements, agreements and business are only binding in Honour.</p></li>
-<li><p>Without limiting Article 9.2, it is further expressly intended that all disputes within the Party, or between one member and another that relate to the Party will be resolved in accordance with the Constitution and not through legal proceedings.</p></li>
+<li><p>Without limiting Article 10(2), it is further expressly intended that all disputes within the Party, or between one member and another that relate to the Party will be resolved in accordance with the Constitution and not through legal proceedings.</p></li>
 <li><p>By joining the Party and remaining members, all members of the Party consent to be bound by this Article.</p></li>
 </ol>
-<h2 id="dispute-resolution-committee">Dispute Resolution Committee</h2>
+<h2>Dispute Resolution Committee</h2>
 <ol>
 <li><p>At the National Congress, members of the Party must elect by simple majority elect three (3) members who will form the Dispute Resolution Committee.</p>
 <ol>
@@ -471,11 +567,11 @@ window.onload = function() {
 <li><p>publish and make available to members the result of such a determination.</p></li>
 </ol></li>
 </ol>
-<h2 id="dissolution">Dissolution</h2>
+<h2>Dissolution</h2>
 <ol>
-<li><p>The PPAU may only be dissolved by a postal ballot - where more than two thirds of members elect to dissolve, and not less than half of current Full Members participate in that ballot. Members will be given at least three months advance notice of this proposal to disband.</p></li>
+<li><p>The Party may only be dissolved by a postal ballot - where more than two thirds of members elect to dissolve, and not less than half of current Full Members participate in that ballot. Members will be given at least three months advance notice of this proposal to disband.</p></li>
 <li><p>Dissolution is effective within 30 days of the results of the ballot being formally announced, or whatever date that ballot may specify.</p></li>
-<li><p>If, after the election to dissolve, all liabilities and debts have been satisfied, and remaining costs and fees with regards to the dissolution have been accounted for, there remains property belonging to the PPAU, that remainder shall be distributed to any organisation with similar goals and principles as set out in this constitution.</p></li>
+<li><p>If, after the election to dissolve, all liabilities and debts have been satisfied, and remaining costs and fees with regards to the dissolution have been accounted for, there remains property belonging to the Party, that remainder shall be distributed to any organisation with similar goals and principles as set out in this constitution.</p></li>
 </ol>
 </div>
 </body>
