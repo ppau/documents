@@ -158,6 +158,7 @@ window.onload = function() {
     h3: 0,
     h4: 0,
     h5: 0,
+    h6: 0,
     ol: -1
   }
 
@@ -177,17 +178,22 @@ window.onload = function() {
     } else if (treeWalker.currentNode.tagName == "H2") {
       lastId = treeWalker.currentNode.id = "" + ++count.h3;
       createHrefAfter(treeWalker.currentNode);
-      count.h4 = count.h5 = 0;
+      count.h4 = count.h5 = count.h6 = 0;
       count.ol = -1;
       ol = [];
     } else if (treeWalker.currentNode.tagName == "H3") {
       lastId = treeWalker.currentNode.id = count.h3 + "." + (++count.h4);
       createHrefAfter(treeWalker.currentNode);
-      count.h5 = 0;
+      count.h5 = count.h6 = 0;
       count.ol = -1;
       ol = [];
     } else if (treeWalker.currentNode.tagName == "H4") {
       lastId = treeWalker.currentNode.id = count.h3 + "." + count.h4 + "." + (++count.h5);
+      createHrefAfter(treeWalker.currentNode);
+      count.h6 = 0;
+      count.ol = -1; ol = [];
+    } else if (treeWalker.currentNode.tagName == "H5") {
+      lastId = treeWalker.currentNode.id = count.h3 + "." + count.h4 + "." + count.h5 + "." + (++count.h6);
       createHrefAfter(treeWalker.currentNode);
       count.ol = -1; ol = [];
     } else if (treeWalker.currentNode.tagName == "LI") {
