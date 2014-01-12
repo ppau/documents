@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8'>
+  <title>Pirate Party Australia Constitution</title>
+  <style>
+      @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+      body {
+        font-family: "Open Sans", sans-serif;
+        background-color: gray;
+      }
+      
+      .header {
+        padding-bottom: 4em;
+        text-align: center;
+      }
+
+      .header * {
+        padding-bottom: 2em;
+      }
+
+      .logo img {
+        width: 100%%;
+      }
+
+      .title {
+        font-size: 30pt;
+        font-weight: bold;
+      }
+
+      .date {
+        display: block;
+        font-style: italic;
+      }
+
+      .page {
+        background-color: white;
+        padding: 8em;
+        max-width: 694px;
+        margin: 0 auto;
+        box-shadow: 0px 0px 10px black;
+        -moz-box-shadow: 0px 0px 10px black;
+        -webkit-box-shadow: 0px 0px 10px black;
+      }
+
+      a {
+        display: none;
+        text-decoration: none;
+        color: #0073ae;
+        float: right;
+      }
+
+      a:hover {
+        border-bottom: 1px dotted #0073ae;
+      }
+
+      h1:hover a,
+      h2:hover a,
+      h3:hover a,
+      h4:hover a,
+      h5:hover a,
+      h6:hover a,
+      p:hover a {
+        display: inline;
+      }
+
+      h1:before,
+      h2:before,
+      h3:before,
+      h4:before,
+      h5:before,
+      h6:before {
+        white-space: pre;
+      }
+
+      .part {
+        counter-increment: part;
+        counter-reset: article;
+      }  
+        
+      .part:before {
+        content: "Part " counter(part) "\A";
+        font-size: 75%%;
+        line-height: 1.6em;
+      }
+
+      /* Verbose mess needed for IE8 compat */
+      h2 {
+        counter-increment: article;
+        counter-reset: subarticle;
+      }
+
+      h2:before {
+        content: counter(article) "\A0\A0";
+      }
+
+      h3 {
+        counter-increment: subarticle;
+        counter-reset: subsubarticle;
+      }
+
+      h3:before {
+        content: counter(article) "." counter(subarticle) "\A0\A0";
+      }
+
+      h4 {
+        counter-increment: subsubarticle;
+        counter-reset: paragraph;
+      }
+
+      h4:before {
+        content: counter(article) "." counter(subarticle) "." counter(subsubarticle) "\A0\A0";
+      }
+
+      h5 {
+        counter-increment: paragraph;
+        counter-reset: subparagraph;
+      }
+
+      h5:before {
+        content: counter(article) "." counter(subarticle) "." counter(subsubarticle) "." counter(paragraph) "\A0\A0";
+      }
+
+      h6 {
+        counter-increment: subparagraph;
+      }
+
+      h6:before {
+        content: counter(article) "." counter(subarticle) "." counter(subsubarticle) "." counter(paragraph) "." counter(subparagraph) "\A0\A0";
+      }
+
+      @media handheld and (max-width: 480px), 
+             screen and (max-device-width: 480px),
+             screen and (max-width: 767px) {
+        .page {
+          padding: 8em 0.5em;
+        }
+
+        .logo {
+          padding: 0 3em;
+        }
+      }
+
+      ol { counter-reset: list; list-style-type: none; }
+      ol > li:before { counter-increment: list; float: left; margin-left: -1.8em; }
+      ol[type='1'] > li:before { content: "(" counter(list) ")"; }
+      ol[type='i'] > li:before { content: "(" counter(list, lower-roman) ")"; }
+      ol[type='a'] > li:before { content: "(" counter(list, lower-alpha) ")"; }
+      /* Nesting due to Chrome case insensitivity bug */
+      ol[type='a'] > li > ol[type='A'] > li:before { content: "(" counter(list, lower-alpha) ")"; }
+  </style>
+</head>
+<body>
+  <div class='page'>
+    <header class='header'>
+      <div class='logo'>
+        <img src="ppauLogo-australia.png" alt="Pirate Party Australia logo">
+      </div>
+      
+      <h1 class='title'>Party Constitution</h1>
+      
+      <time datetime="" class='date'>{date}</time>
+    </header>
+    
+    <hr>
+    
+    %s
+
+  </div>
+</body>
+
+</html>
