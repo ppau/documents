@@ -85,10 +85,11 @@ process = Popen(cmd, shell=True, stdout=PIPE)
 data = process.communicate()[0].decode()
 text = open('template.html').read() % data
 if len(sys.argv) >= 2:
-    date = "{0.day} {0:%B}, {0:%Y}".format(datetime.datetime.strptime(sys.argv[1], "%Y-%m-%d"))
+    date = datetime.datetime.strptime(sys.argv[1], "%Y-%m-%d")
 else:
-    date = "{0.day} {0:%B}, {0:%Y}".format(datetime.datetime.now())
-text = text.replace("{date}", date)
+    date = datetime.datetime.now()
+text = text.replace("{date}", "{0.day} {0:%B}, {0:%Y}".format(date))
+text = text.replace("{date_iso}", date.strftime("%Y-%m-%d"))
 
 doc = lxml.html.fromstring(text)
 
@@ -101,8 +102,8 @@ list_depth = -1
 ready = False
 
 if not final:
-    doc.head.append(lxml.html.fromstring(draft_style))
-    doc.body.cssselect(".title")[0].append(lxml.html.fromstring(
+    doc.head.append(lxml.html.fragment_fromstring(draft_style))
+    doc.body.cssselect(".title")[0].append(lxml.html.fragment_fromstring(
         "<span style='color: red'> DRAFT</span>"))
 
 # Sub in the logo
@@ -113,6 +114,7 @@ for node in doc.body.iter():
     if not ready:
         if node.tag == "hr":
             ready = True
+            node.getparent().remove(node)
         else: continue
 
     # Catch sections (\part)
@@ -148,6 +150,7 @@ for node in doc.body.iter():
         node.attrib['type'] = list_depth_tokens[list_depth]
 
     elif node.tag == "li":
+        list_depth = get_list_depth(node)
         list_items[list_depth] += 1
         node.attrib['id'] = last_id + generate_list_id(list_items, list_depth)
         reset_counter_to(list_items, list_depth)

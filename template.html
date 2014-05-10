@@ -8,8 +8,9 @@
 
       body {
         font-family: "Open Sans", sans-serif;
-        background-color: gray;
         counter-reset: part;
+        background-color: #eee;
+        margin: 0;
       }
 
       body.draft .page {
@@ -18,38 +19,34 @@
       }
       
       .header {
-        padding-bottom: 4em;
+        padding-bottom: 2em;
         text-align: center;
       }
-
-      .header * {
-        padding-bottom: 2em;
-      }
-
+      
       .logo img {
-        width: 100%%;
+        width: 90%%;
+        padding-bottom: 5em;
       }
 
       .title {
         font-size: 30pt;
         font-weight: bold;
+        border: 0;
+        margin: 0;
       }
 
       dt { font-weight: bold }
 
       .date {
         display: block;
-        font-style: italic;
       }
 
       .page {
         background-color: white;
-        padding: 8em;
+        padding: 4em;
         max-width: 694px;
         margin: 0 auto;
-        box-shadow: 0px 0px 10px black;
-        -moz-box-shadow: 0px 0px 10px black;
-        -webkit-box-shadow: 0px 0px 10px black;
+        position: relative;
       }
 
       a {
@@ -59,8 +56,38 @@
         float: right;
       }
 
+      .hl {
+        background-color: rgba(255,255,0,0.4);
+        transition: all 1.5s;
+      }
+
       a:hover {
         border-bottom: 1px dotted #0073ae;
+      }
+
+      h1 {
+        margin-top: 2em;
+        margin-bottom: 0.9em;
+        padding-left: 12px;
+        border-left: 6px solid #0073ae;
+      }
+
+      h2 {
+        padding-top: 0.5em;
+        padding-bottom: 0.1em;
+        margin-bottom: 1em;
+        border-bottom: 2px solid #cfcfcf;
+      }
+      
+      h3 {
+        padding-top: 0.2em;
+        padding-bottom: 0.1em;
+        margin-bottom: 0.8em;
+        border-bottom: 1px solid #c0c0c0;
+      }
+
+      h1, h2, h3, h4, h5, h6, dt, p {
+        position: relative;
       }
 
       h1:hover a,
@@ -72,6 +99,8 @@
       dt:hover a,
       p:hover a {
         display: inline;
+        position: absolute;
+        right: 0;
       }
 
       h1:before,
@@ -139,15 +168,13 @@
         content: counter(article) "." counter(subarticle) "." counter(subsubarticle) "." counter(paragraph) "." counter(subparagraph) "\A0\A0";
       }
 
-      @media handheld and (max-width: 480px), 
-             screen and (max-device-width: 480px),
-             screen and (max-width: 767px) {
+      @media (max-width: 480px) { 
         .page {
-          padding: 8em 0.5em;
+          padding: 2em 0.5em;
         }
 
         .logo {
-          padding: 0 3em;
+          padding: 0;
         }
       }
 
@@ -169,7 +196,7 @@
       
       <h1 class='title'>Party Constitution</h1>
       
-      <time datetime="" class='date'>{date}</time>
+      <time datetime="{date_iso}" class='date'>{date}</time>
     </header>
     
     <hr>
@@ -177,6 +204,51 @@
     %s
 
   </div>
+  <script>
+    window.requestAnimationFrame = window.requestAnimationFrame || 
+        function(x) { setTimeout(x, 1000) };
+
+    if (window.addEventListener) {
+      var hashchange = function() {
+          if (location.hash.substr(1) === "") { return; }
+
+          var page = document.querySelector('.page'),
+              node = document.getElementById(location.hash.substr(1)),
+              hl = document.querySelector('.hl');
+
+          if (node == null) return;
+          
+          if (hl != null) {
+            hl.parentNode.removeChild(hl);
+          }
+          
+          hl = document.createElement('div');
+          hl.className = 'hl';
+
+          hl.style.top = node.offsetTop - 8;
+          hl.style.left = 0;
+
+          if (node.nodeName == "DT") {
+            hl.style.height = node.offsetHeight + 32 + node.nextElementSibling.offsetHeight;
+          } else {
+            hl.style.height = node.offsetHeight + 16;
+          }
+          hl.style.width = "100%%";
+          hl.style.position = "absolute";
+
+          page.insertBefore(hl, page.firstChild);
+          requestAnimationFrame(function() {
+              hl.style.backgroundColor = 'rgba(0,0,50,0.1)';
+          });
+
+      };
+
+      window.addEventListener('hashchange', hashchange);
+      window.addEventListener('resize', hashchange);
+      hashchange();
+
+    }
+  </script>
 </body>
 
 </html>
