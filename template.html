@@ -11,6 +11,11 @@
         background-color: gray;
         counter-reset: part;
       }
+
+      body.draft .page {
+        background: url(draft.png) repeat;
+        background-size: 100%%;
+      }
       
       .header {
         padding-bottom: 4em;
@@ -29,6 +34,8 @@
         font-size: 30pt;
         font-weight: bold;
       }
+
+      dt { font-weight: bold }
 
       .date {
         display: block;
@@ -62,6 +69,7 @@
       h4:hover a,
       h5:hover a,
       h6:hover a,
+      dt:hover a,
       p:hover a {
         display: inline;
       }
@@ -81,7 +89,7 @@
       }  
         
       .part:before {
-        content: "Part " counter(part) "\A";
+        content: "Part " counter(part, upper-roman) "\A";
         font-size: 75%%;
         line-height: 1.6em;
       }
