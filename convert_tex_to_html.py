@@ -1,5 +1,6 @@
 import sys
 import string
+import datetime
 
 from subprocess import Popen, PIPE
 from collections import Counter
@@ -7,6 +8,13 @@ from collections import Counter
 import lxml.html
 import roman
 
+with open('resources/draft.png.base64') as f:
+    draft_style = """<style>
+      .page {
+        background: url(data:image/png;base64,%s) repeat !important;
+        background-size: 100%% !important;
+      }
+</style>""" % f.read()
 
 list_depth_tokens = ['1', 'a', 'i', 'A']
 
@@ -17,6 +25,10 @@ list_depth_style = {
     'A': lambda x: string.ascii_uppercase[x-1]
 }
 
+final = False
+if "--final" in sys.argv:
+    final = True
+    del sys.argv[sys.argv.index("--final")]
 
 def get_list_depth(node):
     i = -1
@@ -72,6 +84,11 @@ process = Popen(cmd, shell=True, stdout=PIPE)
 
 data = process.communicate()[0].decode()
 text = open('template.html').read() % data
+if len(sys.argv) >= 2:
+    date = "{0.day} {0:%B}, {0:%Y}".format(datetime.datetime.strptime(sys.argv[1], "%Y-%m-%d"))
+else:
+    date = "{0.day} {0:%B}, {0:%Y}".format(datetime.datetime.now())
+text = text.replace("{date}", date)
 
 doc = lxml.html.fromstring(text)
 
@@ -82,6 +99,15 @@ last_id = ""
 last_section = None
 list_depth = -1
 ready = False
+
+if not final:
+    doc.head.append(lxml.html.fromstring(draft_style))
+    doc.body.cssselect(".title")[0].append(lxml.html.fromstring(
+        "<span style='color: red'> DRAFT</span>"))
+
+# Sub in the logo
+with open("resources/logo.png.base64") as f:
+    doc.body.cssselect(".logo img")[0].attrib['src'] = "data:image/png;base64," + f.read()
 
 for node in doc.body.iter():
     if not ready:
@@ -99,7 +125,8 @@ for node in doc.body.iter():
         articles[current_level] += 1
 
         if current_level == -1:
-            last_id = node.attrib['id'] = 'part-%s' % articles[current_level]
+            last_id = node.attrib['id'] = 'part-%s' %\
+                roman.toRoman(articles[current_level]).lower()
         else:
             last_id = node.attrib['id'] = generate_id(articles, current_level)
             #node.attrib['class'] = 'article'
@@ -110,6 +137,10 @@ for node in doc.body.iter():
         if node.tag == "h1":
             node.attrib['class'] = 'part'
         create_para_link(doc, node, last_section.attrib['id'])
+
+    elif node.tag == "dt":
+        node.attrib['id'] = node.text.strip().lower().replace(" ", '-').replace(":", "")
+        create_para_link(doc, node, node.attrib['id'])
 
     elif node.tag == "ol":
         list_depth = get_list_depth(node)
