@@ -1,0 +1,585 @@
+\documentclass[a4paper,titlepage,8.5pt]{article}
+\usepackage{fontspec}
+\setmainfont[Ligatures=TeX]{Open Sans}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage[titles]{tocloft}
+\usepackage{hyperref}
+\usepackage[parfill]{parskip}
+\usepackage{a4wide}
+\usepackage{draftwatermark}
+\usepackage{framed}
+\usepackage{etoolbox}
+
+\hypersetup{
+	pdftitle={Pirate Party Australia Branch Constitution},
+	pdfauthor={},
+	pdfsubject={},
+	pdfcreator={},
+	pdfproducer={},
+	pdfkeywords={},
+	colorlinks=false % set to true to see links in red
+}
+
+% Set section indent
+\setlength{\cftsecnumwidth}{2.0em}
+\setcounter{secnumdepth}{5}
+
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\labelenumi}{(\theenumi)}
+
+\renewcommand{\theenumii}{\alph{enumii}}
+\renewcommand{\labelenumii}{(\theenumii)}
+
+\renewcommand{\theenumiii}{\roman{enumiii}}
+\renewcommand{\labelenumiii}{(\theenumiii)}
+
+\renewcommand{\theenumiv}{\roman{enumiv}}
+\renewcommand{\labelenumiv}{(\theenumiv)}
+
+%%%%%%%%%%%%%
+% VARIABLES %
+%%%%%%%%%%%%%
+
+% Insert "ACT", "NSW", "Northern Territory", "Queensland", "South Australia", "Tasmania", "Victoria" or "Western Australia".
+\newcommand{\branch}{Tasmania}
+
+% Insert "the Australian Capital Territory", "New South Wales", "the Northern Territory", "Queensland", "South Australia", "Tasmania", "Victoria" or "Western Australia".
+\newcommand{\state}{Tasmania}
+
+% Insert "ACT", "NSW", "NT", "Qld", "SA", "Tas", "Vic", or "WA".
+\newcommand{\abbreviation}{Tas}
+
+% Insert "State" or "Territory".
+\newcommand{\stateorterritory}{State}
+
+% Insert "Parliament" for States (except Queensland) or "Legislative Assembly" for Territories and Queensland.
+\newcommand{\legislature}{Parliament}
+
+% Insert "\actact", "\nswact", "\ntact", "\qldact", "\saact", "\tasact", "\vicact", "\vicact", or "\waact"
+\newcommand{\act}{\tasact}
+
+% Insert "\actagent", "\nswagent", "\ntagent", "\qldagent", "\saagent", "\tasagent", "\vicagent" or "\waagent".
+\newcommand{\agent}{\tasagent}
+
+% Insert "\actec", "\nswec", "\ntec", "\qldec", "\saec", "\tasec", "\vicec" or "\waec".
+\newcommand{\electoralcommission}{\tasec}
+
+%%%%%%%%%%%%%%%%%
+% DO NOT MODIFY %
+%%%%%%%%%%%%%%%%%
+
+\newcommand{\actact}{\emph{Electoral Act 1992} (ACT)}
+\newcommand{\nswact}{\emph{Parliamentary Electorates and Elections Act 1912} (NSW)}
+\newcommand{\ntact}{\emph{Electoral Act} (NT)}
+\newcommand{\qldact}{\emph{Electoral Act 1992} (Qld)}
+\newcommand{\saact}{\emph{Electoral Act 1985} (SA)}
+\newcommand{\tasact}{\emph{Electoral Act 2004} (Tas)}
+\newcommand{\vicact}{\emph{Electoral Act 2002} (Vic)}
+\newcommand{\waact}{\emph{Electoral Act 1907} (WA)}
+
+\newcommand{\actagent}{Reporting Agent}
+\newcommand{\nswagent}{Party Agent}
+\newcommand{\ntagent}{Reporting Agent}
+\newcommand{\qldagent}{Agent}
+\newcommand{\saagent}{---}
+\newcommand{\tasagent}{---}
+\newcommand{\vicagent}{---}
+\newcommand{\waagent}{Agent}
+
+\newcommand{\actec}{Australian Capital Territory Electoral Commission}
+\newcommand{\nswec}{NSW Electoral Commission}
+\newcommand{\ntec}{Northern Territory Electoral Commission}
+\newcommand{\qldec}{Electoral Commission of Queensland}
+\newcommand{\saec}{Electoral Commission of South Australia}
+\newcommand{\tasec}{Tasmanian Electoral Commission}
+\newcommand{\vicec}{Victorian Electoral Commission}
+\newcommand{\waec}{Western Australian Electoral Commission}
+
+\newtoggle{ACT} \togglefalse{ACT}
+\newtoggle{NSW} \togglefalse{NSW}
+\newtoggle{NT}  \togglefalse{NT}
+\newtoggle{Qld} \togglefalse{Qld}
+\newtoggle{SA}  \togglefalse{SA}
+\newtoggle{Tas} \togglefalse{Tas}
+\newtoggle{Vic} \togglefalse{Vic}
+\newtoggle{WA}  \togglefalse{WA}
+
+\toggletrue{\abbreviation}
+
+%%%%%%%%%%%
+
+\begin{document}
+
+\title{Pirate Party Australia ({\branch} Branch) Constitution}
+\author{Pirate Party {\branch}}
+\date{\today}
+\maketitle
+
+\pagenumbering{gobble}
+
+\tableofcontents
+\thispagestyle{empty}
+\newpage
+
+% Reset page numbers so the TOC doesnt count...
+\setcounter{page}{1}
+
+\part{Principles \& Objects of the Branch}
+
+\begin{framed}
+
+ *** \underline{To be written according to Branch needs and wants.}
+
+\end{framed}
+
+The Branch intends to contest elections for the {\legislature} of {\state}.
+
+The Branch shall also, as far as appropriate, promote the Principles \& Objects of the Federal Party.
+
+\newpage
+
+\part{Definitions}
+
+\begin{description}
+\item[Federal Party:] Pirate Party Australia, the political party registered under the \textit{Commonwealth Electoral Act 1918.}
+\item[Simple majority:] One half (1/2), ignoring the remainder, plus one (1) of votes on the motion must be in favour of the motion for it to carry. Abstaining is not considered for the purposes of calculating the majority but still contributes to meeting the relevant quorum.
+\item[Absolute majority:] One half (1/2), ignoring the remainder, plus one (1) of all members who have the right to vote on the motion must vote in favour of the motion for it to carry. For the purposes of this type of majority, abstaining is equivalent to voting against the motion.
+\item[Two-thirds majority:] Two-thirds (2/3), ignoring the remainder, plus one (1) of votes on the motion must be in favour of the motion for it to carry. Abstaining is not considered for the purposes of calculating the majority but still contributes to meeting the relevant quorum.
+\item[Absolute two-thirds majority:] Two-thirds (2/3), ignoring the remainder, plus one (1) of all members who have the right to vote on the motion must vote in favour of the motion for it to carry. For the purposes of this type of majority, abstaining is equivalent to voting against the motion.
+\item[Three-quarters majority:] Three-quarters (3/4), ignoring the remainder, plus one (1) of votes on the motion must be in favour of the motion for it to carry. Abstaining is not considered for the purposes of calculating the majority but still contributes to meeting the relevant quorum.
+\item[Optional preferential voting:] A type of voting where the voter may opt to fill in as few as none and as many as all of the fields provided, with numbering relevant to the voting system being used.
+\end{description}
+
+\part{Articles of the Constitution}
+
+\section{Name, Principles and Constitution}
+
+\begin{enumerate}
+\item The name of the Branch will be ``Pirate Party Australia ({\branch} Branch)'', also known as ``Pirate Party {\branch}'' or ``the Pirate Party''. Pirate Party Australia ({\branch} Branch) may be referred to as ``PPAU-{\abbreviation}'' internally. In this document, Pirate Party Australia ({\branch} Branch) shall be referred to as either ``Pirate Party {\branch}'' or ``the Branch''. All branch documents, members and policies are subject and subordinate to this constitution.
+\item The Branch is a non-profit organisation. The assets and income of the Branch shall be applied solely in furtherance of its above-mentioned objects and no portion shall be distributed directly or indirectly to the members of the Branch except as bona fide compensation for services rendered or expenses incurred on behalf of the Branch.
+\item The Branch's financial year shall begin on 1 July and end on 30 June the following year.
+\end{enumerate}
+
+\section{Structure \& Composition}
+
+\begin{enumerate}
+\item The Branch shall be governed at the {\stateorterritory} level by the {\stateorterritory} Executive Council. The {\stateorterritory} Executive Council may create additional structures and subordinate organisations, such as committees, working groups or branches, as it sees fit.
+\item The {\stateorterritory} Executive Council shall be comprised of those persons formally elected to positions elaborated on within this constitution.
+\item Those members who form the {\stateorterritory} Executive Council are to be elected from those eligible persons as elaborated within this constitution, and are to be elected after deliberation at an annual Branch Congress.
+\item The {\stateorterritory} Executive Council, as the governing body of the Branch, has the authority to overrule or amend any policy or decision of any subordinate organisation if it deems those things to be inconsistent with or repugnant to the values, ideals or policies of the Branch.
+\item The constitution of the Federal Party may confer responsibilities, obligations and limitations on the Branch.
+\end{enumerate}
+
+\subsection{Paramountcy of the Federal Party}
+
+\begin{enumerate}
+
+\item The National Congress and National Council of the Federal Party may make binding motions and directives on any matter that apply to the branch specifically.
+\item The National Congress of the Federal Party has the exclusive right, by two-thirds majority vote, to allow the Branch to merge with, affiliate with or disaffiliate with any other organisation.
+
+\end{enumerate}
+
+\section{{\stateorterritory} Executive Council}
+
+\begin{enumerate}
+\item Members of the {\stateorterritory} Executive Council shall be referred to as Councillors.
+\end{enumerate}
+
+\subsection{Quorum and Majorities}
+
+\begin{enumerate}
+\item Unless otherwise provided within this Constitution, no question regarding Branch business is to be decided or resolved at a meeting of the {\stateorterritory} Executive Council unless at least five (5) members or two-thirds of the {\stateorterritory} Executive Council are present, whichever number is greater.
+\item A Councillor may add their contribution to quorum if they are unable to attend, but only for specified issues, by express, written consent, conditional on the following:
+\begin{enumerate}
+\item The vote may only be applied where the exact motion text was known to the Councillor in advance, and the vote is for the unmodified text.
+\item Written consent should be included within the minutes.
+\end{enumerate}
+\item All motions must be carried by an absolute two-thirds majority of the {\stateorterritory} Executive Council.
+\item The quorum for any motion to accept the minutes of a previous meeting is set at the number of Councillors who attended that meeting. All Councillors absent from the previous meeting abstain by default.
+\end{enumerate}
+
+\subsection{Positions}
+
+\subsubsection{President}
+
+\paragraph{Duties and Responsibilities}
+
+\begin{enumerate}
+\item Lead the Branch.
+\item Chair the Branch Congress, and meetings of the {\stateorterritory} Executive Council.
+\item Co-ordinate the activities of the {\stateorterritory} Executive Council.
+\end{enumerate}
+
+\subsubsection{Deputy President}
+
+\paragraph{Duties and Responsibilities}
+
+\begin{enumerate}
+\item Assist the President with their duties in accordance with this constitution.
+\item If the President is unable (on a temporary basis) to conduct their obligations under the constitution, the Deputy is to substitute and fulfil those obligations.
+\end{enumerate}
+
+\subsubsection{Secretary}
+
+\paragraph{Duties and Responsibilities}
+
+\begin{enumerate}
+\item The Secretary fulfils the requirements and obligations of the position of the same name defined in the {\act}.
+\item Provide notice in advance to members of all official meetings, and of the Branch Congress.
+\item Prepare schedules, agenda, and correspondence from members for submission to the meeting or Branch Congress, and record attendance of persons present, and arrange for minutes or logs to be recorded.
+\item Co-ordinate official correspondence of the {\stateorterritory} Executive Council.
+\item Maintain custody of all documents, statements and records of the Branch, and except for those documents that are otherwise accounted for in this constitution, by other officers.
+\item Briefly minute, or delegate responsibility for minuting, listing the decisions of meetings of the Branch Congress and {\stateorterritory} Executive Council and ensure publication at the earliest possible convenience.
+\end{enumerate}
+
+\subsubsection{Deputy Secretary}
+
+\paragraph{Duties and Responsibilities}
+
+\begin{enumerate}
+\item Assist the Secretary with their duties in accordance with this constitution.
+\item If the Secretary is unable (on a temporary basis) to conduct their obligations under the constitution, the Deputy is to substitute and fulfil those obligations.
+\end{enumerate}
+
+\subsubsection{Treasurer}
+
+\paragraph{Duties and Responsibilities}
+
+\begin{enumerate}
+\item The receipt of all monies paid to the Branch, the issuing of all receipts and the deposit of such monies into accounts determined by the {\stateorterritory} Executive Council.
+\item Develop and ensure security and accountability measures for all receipts and payments are followed.
+\item Submit an Annual Financial Report to the Branch Congress, detailing balance sheets, financial statements and relevant particulars.
+\item Maintain adequate controls over Branch finances and all financial records, documents, securities ensuring smooth transition when position is transferred.
+\item Ensure that all book keeping is conducted by an appropriately skilled person, and all documents conform to relevant legislation and regulations and this constitution.
+
+%%%%%%%%%%%%%%
+\iftoggle{WA} {
+% \begin{framed}
+
+%*** \underline{WA only:}
+
+ \item Fulfil the requirements and obligations of the Agent as defined in the \emph{Electoral Act 1907} (WA) unless the State Council provides otherwise.
+
+% \end{framed}
+}{}
+%%%%%%%%%%%%%%
+
+\end{enumerate}
+
+\subsubsection{Deputy Treasurer}
+
+\paragraph{Duties and Responsibilities}
+
+\begin{enumerate}
+\item Assist the Treasurer with their duties in accordance with this constitution.
+\item If the Treasurer is unable (on a temporary basis) to conduct their obligations under the constitution, the Deputy is to substitute and fulfil those obligations.
+\end{enumerate}
+
+%%%%%%%%%%%%%%
+\iftoggle{WA} {} {
+
+% \begin{framed}
+
+% *** \underline{No Registered Officer in WA.}
+
+\subsubsection{Registered Officer}
+
+\paragraph{Duties and Responsibilities}
+
+\begin{enumerate}
+\item The Registered Officer fulfils the requirements and obligations of the position of the same name defined in the {\act}.
+\item The {\stateorterritory} Executive Council may confer additional responsibilities and obligations on the Registered Officer as it sees fit.
+
+%%%%%%%%%%%%%%
+\ifboolexpr { togl {ACT} or togl {NT} or togl {Qld} } {
+% \begin{framed}
+
+% *** \underline{ACT, NT and Qld only:}
+
+\item Fulfil the requirements and obligations of the {\agent} as defined in the {\act} unless the {\stateorterritory} Executive Council provides otherwise.
+\item The Registered Officer is responsible for reporting constitutional amendments to the {\electoralcommission} in accordance with the {\act}.
+
+% \end{framed}
+}{}
+%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%
+\ifboolexpr { togl {ACT} or togl {SA} or togl {Tas} or togl {Vic} } {
+
+% \begin{framed}
+
+% *** \underline{ACT, SA, Tas and Vic only:}
+
+ \item The {\stateorterritory} Executive Council must appoint one of its number (but not the Secretary or Registered Officer) as Deputy Registered Officer to perform the duties of the Registered Officer if the Registered Officer is unable to perform them, in accordance with the {\act}.
+
+% \end{framed}
+}{}
+%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%
+\iftoggle{NSW} {
+% \begin{framed}
+
+% *** \underline{NSW only:}
+
+\item Fulfil the requirements and obligations of the Party Agent as defined in the \emph{Election Funding, Expenditure and Disclosures Act 1981} (NSW) unless the State Council provides otherwise.
+
+% \end{framed}
+}{}
+%%%%%%%%%%%%%%
+
+\end{enumerate}
+%\end{framed}
+}
+
+\iftoggle{WA}{
+% \begin{framed}
+
+% *** \underline{WA only --- subject to change:}
+
+ \subsubsection{Policy Development Officer}
+
+ \begin{enumerate}
+
+ \item The Policy Development Officer is responsible for overseeing and coordinating policy development processes within the Branch and the maintainenance of policies of the Branch.
+ \item The State Council may establish a Policy Development Committee of which the Policy Development Officer is to be chair.
+
+ \end{enumerate}
+
+% \end{framed}
+}{}
+
+\section{Membership}
+
+\subsection{Eligibility}
+
+\begin{enumerate}
+
+\item Membership is open to all natural persons who:
+
+\begin{enumerate}
+
+\item Have read and agreed to the terms and principles provided within this constitution, and
+\item Are eligible for, and consent to, membership of the Federal Party.
+
+\end{enumerate}
+
+\item The provisions of the constitution of the Federal Party relating to membership, including (inter alia) refusal, suspension and expulsion, apply to the Branch.
+\item The {\stateorterritory} Executive Council may recommend or request that the National Council of the Federal Party refuse an application for membership, suspend a member, or terminate membership.
+
+%%%%%%%%%%%%%%
+\iftoggle{Qld} {
+% \begin{framed}
+
+% *** \underline{Qld only:}
+
+ \item For the purposes of Section 76(1)(c)(i)--(ii) of the \emph{Electoral Act 1992} (Qld), the membership requirements set out in the Federal Constitution apply, subject to any further requirements of the Act.
+ \item In accordance with Section 76(1)(c)(iii) of the \emph{Electoral Act 1992} (Qld), a person convicted of a disqualifying electoral offence within 10 years before the person applies to become a member is prohibited from becoming a member.
+ \item In accordance with Section 76(1)(c)(iv) of the \emph{Electoral Act 1992} (Qld), a person convicted of a disqualifying electoral offence while a member must have their membership revoked.
+
+% \end{framed}
+}{}
+
+\end{enumerate}
+
+\section{Policy Formulation, Development and Adoption}
+
+\subsection{Development}
+
+\begin{enumerate}
+\item Policy development must occur with as much interaction with members as is feasible, the process must be as participatory as is feasible, and outcomes must be reached through consensus where feasible.
+\end{enumerate}
+
+\subsection{Adoption}
+
+\begin{enumerate}
+\item New policy, unless dictated by circumstances of urgency, shall be decided on at the Branch Congress.
+\item Where circumstance of urgency are apparent and declared, the {\stateorterritory} Executive Council may make policy, that shall be considered official, however that policy is subject to vote at the next Branch Congress, and is subject to the same conditions as those above.
+\item A policy must not be adopted if it is inconsistent with Part I of this constitution.
+\item All policies adopted by the Branch Congress will be recorded in a central register available to all members.
+\item Every feasible effort must be taken to ensure that there is some accessible and equitable mechanism available for remote participation at the Branch Congress.
+\end{enumerate}
+
+\subsection{Policy Review}
+
+\begin{enumerate}
+\item Where not less than 15\% of full members petition the {\stateorterritory} Executive Council, a policy will come under official review by the Branch, where that policy will be reviewed and voted upon at the Branch Congress.
+\end{enumerate}
+
+\subsection{Positions on issues outside of Platform}
+
+\begin{enumerate}
+\item No member of the Branch may imply that a personal position on issues outside of the scope of the Branch principles, platform or policies is the position of the Branch.
+\end{enumerate}
+
+\section{Meeting Procedure and Requirements}
+
+\begin{enumerate}
+\item Meetings should be structured so as to allow all members to participate, and have their opinions acknowledged.
+\item All members should be notified at least 24 hours in advance of any official meeting of the {\stateorterritory} Executive Council, and of the intended agenda of such meetings.
+\item Consensus should be the focus of any proposal or decision at a meeting. However, where consensus cannot be achieved, a two-thirds majority will be sufficient to carry forward a proposal.
+\item Where there is disagreement, or members indicate that a delay in voting is required, sufficient time should be given for discussion before any voting begins.
+\item Meetings are only open to members unless a simple majority of the members present permit specified non-members to observe the meeting.
+\item The method of voting and the medium by which the meeting occurs is to be determined by the meeting facilitator, except where otherwise provided for by this constitution.
+\item The minutes of a meeting should be distributed to the members within seven days of the meeting. The {\stateorterritory} Executive Council may specify procedures for the collection and dissemination of such minutes.
+\item The {\stateorterritory} Executive Council may specify additional meetings procedures.
+\end{enumerate}
+
+\subsection{Branch Congress}
+
+\begin{enumerate}
+\item The {\stateorterritory} Executive Council will organise the Branch Congress.
+\item A Branch Congress must begin in July each year, and shall be referred to as the Annual Branch Congress where disambiguation is necessary.
+\item The Branch Congress must be announced forty-two (42) days prior to the date of the Congress.
+\item The agenda must be finalised at least seven (7) days prior to the date of the Congress.
+\item If at least 25\% of the members petition the {\stateorterritory} Executive Council in writing expressing their lack of confidence in the {\stateorterritory} Executive Council, the {\stateorterritory} Executive Council shall organise an emergency Branch Congress of the Members within thirty (30) days.
+\end{enumerate}
+
+\subsection{Preselection Meeting}
+
+\begin{enumerate}
+\item The {\stateorterritory} Executive Council will organise the Preselection Meeting.
+\item The Preselection Meeting may be an independent meeting, or may coincide with the National Congress or another meeting.
+\item Multiple Preselection Meetings may be held where deemed appropriate by the {\stateorterritory} Executive Council in the lead up to an election.
+\item The {\stateorterritory} Executive Council may determine that a separate Preselection Meeting may be held for each specific geographic area.
+\end{enumerate}
+
+\subsection{Policy Meeting}
+
+\begin{enumerate}
+\item The {\stateorterritory} Executive Council will organise the Policy Meeting.
+\item The Policy Meeting may be an independent meeting, or may coincide with the National Congress or another meeting.
+\item The Policy Meeting is always considered to coincide with the Branch Congress.
+\item The Policy Meeting may be held as often as deemed appropriate by the {\stateorterritory} Executive Council.
+\end{enumerate}
+
+\subsection{Online Voting}
+
+\begin{enumerate}
+\item Some elements of the Branch Congress and Policy Meetings are required to be put to a final vote on an online voting system.
+\item The online voting period must not be less than seven (7) days.
+\item The online voting system must ensure that only Full Members can vote, and that each member may only vote once per poll.
+\item Motions of the following types that carry at a Branch Congress will be put to a final vote on an online voting system for Full Members, where said motions will only carry if they pass by the threshold provided for by the Constitution, or where not provided, a two-thirds majority:
+\begin{enumerate}
+\item Constitutional amendments,
+\item Platform amendments, policy amendments and position statements, and
+\item Other documentation that guides branch position or direction.
+\end{enumerate}
+\item Motions of the following types that carry at a Policy Meeting will be put to a final vote on an online voting system for Full Members, where said motions will only carry if they pass by the threshold provided for by the Constitution, or where not provided, a two-thirds majority:
+\begin{enumerate}
+\item Platform amendments, policy amendments and position statements, and
+\end{enumerate}
+\item Officer election requirements as provided for by the Constitution will be fulfilled by the online voting system.
+\end{enumerate}
+
+\section{Pre-Selection of Candidates for Election to {\legislature}}
+
+\begin{enumerate}
+\item All Members seeking to stand as candidates for election to the {\legislature} of {\state} must be nominated at a Preselection Meeting and seconded by another member.
+\item The {\stateorterritory} Executive Council will determine whether all members (or a geographical sub-set of members) will vote to select candidates for election to the {\legislature} of {\state}.
+\item All members seeking to stand as candidates must submit to the Branch Congress a detailed and truthful statement as to their suitability for election.
+\item The {\stateorterritory} Executive Council may establish procedures for the vetting of candidates backgrounds and must publish these procedures to the Membership.
+\item As far as is practicable, candidates should be selected at least twelve (12) months before the normal time of the next election.
+\item All members wishing to run as candidates for the Branch must sign a declaration to the effect of:
+\begin{enumerate}
+	\item I hereby pledge to advance and adhere to the platform and ideals of Pirate Party {\state}, both during the election campaign and upon election.
+\end{enumerate}
+\end{enumerate}
+
+\section{Financial Structure}
+
+\subsection{Property}
+
+\begin{enumerate}
+\item All property and resources of the Branch are to be used solely for the purposes of promoting and achieving the principles and goals stated within this constitution.
+\item All Members, upon request to the {\stateorterritory} Executive Council, may have access to the latest financial reports of the Branch.
+\item All bank accounts of the Branch will:
+\begin{enumerate}
+\item be held separately from those of its members;
+\item require more than one signatory for the disbursement of funds; and
+\item include the wording ``Pirate Party'' in their title.
+\end{enumerate}
+\item All non-banking financial accounts (for example, PayPal) of the Branch will:
+\begin{enumerate}
+\item be held separately from those of its members;
+\item have multiple signatories/user accounts linked to the account, if possible;
+\item move all funds into the bank accounts as soon as feasible; and
+\item have all records published annually.
+\end{enumerate}
+\item All accounts of the Branch will be audited annually and the auditor’s report published to the members at the Branch Congress.
+\end{enumerate}
+
+\section{Constitutional Amendments, Interpretation and By-Laws}
+
+\subsection{Amendments by the Branch Congress}
+
+\begin{enumerate}
+\item This constitution may only be amended during the Branch Congress, or where otherwise specified in this constitution. Such amendments require a two-thirds majority vote with a quorum of ten (10) percent of relevant members at the time the amendment was proposed.
+\item Any proposals for amendments must be notified in writing to the members at least 28 days prior to the Branch Congress.
+\item At each subsequent Branch Congress, the members will vote on whether to raise the quorum by an additional two (2) percent (eg from 10\% to 12\% to 14\%, etc). In the event that the Members do not vote in favour of that increase, then this clause will lapse.
+\end{enumerate}
+
+\subsection{Interpretation}
+
+\begin{enumerate}
+\item Where a dispute may arise with regards to the interpretation of this constitution, the Dispute Resolution Committee of the Federal Party shall make a determination with regards to the dispute.
+\end{enumerate}
+
+\subsection{Power to Make By-Laws}
+
+\begin{enumerate}
+\item The {\stateorterritory} Executive Council:
+\begin{enumerate}
+\item Has authority to enact by-laws that, within the constraints of this constitution, may affect or clarify this constitution;
+\item Is empowered with authority to enact, amend or revoke by-laws; and
+\item Must keep a register of all such by-laws which shall be available to members on request.
+\end{enumerate}
+\end{enumerate}
+
+\subsection{Operational and Temporary Amendments}
+
+\begin{enumerate}
+\item A three-quarters majority of the {\stateorterritory} Executive Council is empowered to make alterations to this constitution where circumstances of urgency dictate, or where it is necessary for branch operation.
+\item Such alterations are temporary, and are considered proposed amendments and as such must be voted upon by Members at the next Branch Congress, where (if approved) they shall become amendments; or
+\item If such an amendment does not receive the necessary majority as stipulated at Article 9.1, then such a proposed amendment will lapse and may only be resurrected by a majority vote of the members at a Branch Congress.
+\end{enumerate}
+
+\section{Councillors, Officers and Branch Officials}
+
+\subsection{Election}
+
+\begin{enumerate}
+\item The positions enumerated within Article 3.2 will be appointed by election through a vote of the Full Members at the Branch Congress, for a term that shall begin at the Branch Congress at which they are elected, and will all end at the next Annual Branch Congress, except where otherwise provided for in this Constitution.
+\item The members who are elected to positions on the {\stateorterritory} Executive Council at the Branch Congress will take up those positions seven (7) days after the result is announced.
+\item The outgoing members of the {\stateorterritory} Executive Council must hand over and communicate as much relevant knowledge as is feasible.
+\item Those members that nominate themselves, or are nominated, for a position on the {\stateorterritory} Executive Council, working group or committee must consent in writing to their nomination.
+\item No more than one {\stateorterritory} Executive Council position may be filled by one member, except in cases where a position is subject to a temporary vacancy and pending a permanent appointment.
+\item In the event a member of the {\stateorterritory} Executive Council is unable or unwilling to perform their duties, the remaining members of the {\stateorterritory} Executive Council may declare the position vacant and appoint an interim replacement by two-thirds majority vote of the remaining members of the {\stateorterritory} Executive Council. The next Branch Congress will then elect a Member to fill that vacant position.
+\item The method for voting by members at the Branch Congress will be optional preferential voting, with the method for the next Congress determined by motion at the Branch Congress. The voting method carries until the next Branch Congress if a two-thirds majority of members present at the Congress is not met for an alternatively proposed method.
+\item Each member is only entitled to vote once in each election.
+\item Candidates for any electable position or appointment within the Branch must present a declaration of any potential conflicts of interest prior to the election or appointment taking place.
+\end{enumerate}
+
+\section{Constitution Not Enforceable in Law}
+
+\begin{enumerate}
+\item In this Article, Constitution means all constituent documents of the Branch, all resolutions of the Branch Congress and all resolutions of the {\stateorterritory} Executive Council relating to the structure and organisation of the Branch.
+\item It is intended that the Constitution and everything done in connection with it, all arrangements relating to it (whether express or implied) and any agreement or business entered into or payment made under this Constitution will not bring about any legal relationship, rights, duties or outcome of any kind, or be enforceable by law, or be the subject of legal proceedings. Instead, all arrangements, agreements and business are only binding in Honour.
+\item Without limiting Article 11(2), it is further expressly intended that all disputes within the Branch, or between one member and another that relate to the Branch will be resolved in accordance with the Constitution and not through legal proceedings.
+\item By joining the Branch and remaining members, all members of the Branch consent to be bound by this Article.
+\end{enumerate}
+
+\section{Dispute Resolution}
+
+\begin{enumerate}
+\item Disputes are to be resolved in accordance with the dispute resolution procedures of the Federal Party.
+\end{enumerate}
+
+\section{Dissolution}
+
+\begin{enumerate}
+\item The Branch may only be dissolved by and on the terms of the National Congress of the Federal Party.
+\end{enumerate}
+
+\end{document}
