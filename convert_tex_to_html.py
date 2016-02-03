@@ -1,14 +1,20 @@
 #!/usr/bin/env python3
 
-import sys
 import string
 import datetime
+import argparse
 
 from subprocess import Popen, PIPE
 from collections import Counter
 
 import lxml.html
 import roman
+
+a = argparse.ArgumentParser()
+a.add_argument('-F', '--final', default=False, action='store_true', help='Remove draft watermarks')
+a.add_argument('-d', '--date', default=[], nargs=1, help='Date string to use (yyyy-mm-dd)')
+a.add_argument('-f', '--file', dest='texfile', type=argparse.FileType('r'), default='./constitution.tex')
+args = a.parse_args()
 
 with open('resources/draft.png.base64') as f:
     draft_style = """<style>
@@ -27,10 +33,6 @@ list_depth_style = {
     'A': lambda x: string.ascii_uppercase[x-1]
 }
 
-final = False
-if "--final" in sys.argv:
-    final = True
-    del sys.argv[sys.argv.index("--final")]
 
 def get_list_depth(node):
     i = -1
@@ -81,13 +83,13 @@ def reset_counter_to(counter, depth):
         del counter[k]
 
 
-cmd = r"cat constitution.tex | sed 's/\\part/\\chapter/' | pandoc -f latex -t html5 --section-divs"
-process = Popen(cmd, shell=True, stdout=PIPE)
+cmd = r"sed 's/\\part/\\chapter/' | pandoc -f latex -t html5 --section-divs"
+process = Popen(cmd, shell=True, stdout=PIPE, stdin=args.texfile)
 
 data = process.communicate()[0].decode()
 text = open('template.html').read() % data
-if len(sys.argv) >= 2:
-    date = datetime.datetime.strptime(sys.argv[1], "%Y-%m-%d")
+if len(args.date) > 0:
+    date = datetime.datetime.strptime(args.date[0], "%Y-%m-%d")
 else:
     date = datetime.datetime.now()
 text = text.replace("{date}", "{0.day} {0:%B}, {0:%Y}".format(date))
@@ -103,7 +105,7 @@ last_section = None
 list_depth = -1
 ready = False
 
-if not final:
+if not args.final:
     doc.head.append(lxml.html.fragment_fromstring(draft_style))
     doc.body.cssselect(".title")[0].append(lxml.html.fragment_fromstring(
         "<span style='color: red'> DRAFT</span>"))
