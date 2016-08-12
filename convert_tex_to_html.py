@@ -92,7 +92,7 @@ if len(args.date) > 0:
     date = datetime.datetime.strptime(args.date[0], "%Y-%m-%d")
 else:
     date = datetime.datetime.now()
-text = text.replace("{date}", "{0.day} {0:%B}, {0:%Y}".format(date))
+text = text.replace("{date}", "{0.day} {0:%B} {0:%Y}".format(date))
 text = text.replace("{date_iso}", date.strftime("%Y-%m-%d"))
 
 doc = lxml.html.fromstring(text)
