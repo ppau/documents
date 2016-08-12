@@ -14,6 +14,8 @@ a = argparse.ArgumentParser()
 a.add_argument('-F', '--final', default=False, action='store_true', help='Remove draft watermarks')
 a.add_argument('-d', '--date', default=[], nargs=1, help='Date string to use (yyyy-mm-dd)')
 a.add_argument('-f', '--file', dest='texfile', type=argparse.FileType('r'), default='./constitution.tex')
+a.add_argument('-T', '--title', default=[])
+a.add_argument('-P', '--parts', default=False, action='store_true')
 args = a.parse_args()
 
 with open('resources/draft.png.base64') as f:
@@ -33,7 +35,6 @@ list_depth_style = {
     'A': lambda x: string.ascii_uppercase[x-1]
 }
 
-
 def get_list_depth(node):
     i = -1
     if node.tag == "ol":
@@ -47,7 +48,6 @@ def get_list_depth(node):
 
     return i
 
-
 def create_para_link(doc, node, id_attr=None):
     a = doc.makeelement('a')
     a.attrib['href'] = "#%s" % (id_attr or node.attrib['id'])
@@ -55,19 +55,28 @@ def create_para_link(doc, node, id_attr=None):
     a.text = "¶"
     node.append(a)
 
-
 def id_str(value, depth, separator):
     if separator == ".":
         return str(value)
 
     return list_depth_style[list_depth_tokens[depth]](int(value))
 
+def generate_id(counter, depth, separator=".", prefix="part-", suffix=""):
+    o = []
+    i = depth
 
-def generate_list_id(counter, depth):
-    return generate_id(counter, depth, ")(", "(", ")")
-
-
-def generate_id(counter, depth, separator=".", prefix="", suffix=""):
+    while i >= 1:
+        o.append(counter[i])
+        i -= 1
+        
+    if current_level == 0:
+        return prefix + roman.toRoman(articles[current_level]).lower()
+    elif args.parts:
+        return prefix + roman.toRoman(articles[0]).lower() + '-' + separator.join([id_str(x, n, separator) for n, x in enumerate(reversed(o))]) + suffix
+    else:
+    	return separator.join([id_str(x, n, separator) for n, x in enumerate(reversed(o))]) + suffix
+        
+def generate_list_id(counter, depth, separator=")(", prefix="(", suffix=")"):
     o = []
     i = depth
 
@@ -82,7 +91,6 @@ def reset_counter_to(counter, depth):
     for k in [k for k in counter.keys() if k > depth]:
         del counter[k]
 
-
 cmd = r"sed 's/\\part/\\chapter/' | pandoc -f latex -t html5 --section-divs"
 process = Popen(cmd, shell=True, stdout=PIPE, stdin=args.texfile)
 
@@ -95,6 +103,19 @@ else:
 text = text.replace("{date}", "{0.day} {0:%B} {0:%Y}".format(date))
 text = text.replace("{date_iso}", date.strftime("%Y-%m-%d"))
 
+doc = lxml.html.fromstring(text)
+
+if len(args.title) > 0:
+    text = text.replace("{title}", args.title)
+else:
+	text = text.replace("{title}", "")
+
+doc = lxml.html.fromstring(text)
+
+if args.parts:
+	text = text.replace("/*!!", "")
+	text = text.replace("!!*/", "")
+	
 doc = lxml.html.fromstring(text)
 
 articles = Counter()
@@ -124,17 +145,13 @@ for node in doc.body.iter():
     # Catch sections (\part)
     if node.tag == "section":
         last_section = node
-        current_level = int(node.attrib['class'][5:]) - 2
+        current_level = int(node.attrib['class'][5:]) - 1
 
         node.attrib.clear()
 
         articles[current_level] += 1
 
-        if current_level == -1:
-            last_id = node.attrib['id'] = 'part-%s' %\
-                roman.toRoman(articles[current_level]).lower()
-        else:
-            last_id = node.attrib['id'] = generate_id(articles, current_level)
+        last_id = node.attrib['id'] = generate_id(articles, current_level)
             #node.attrib['class'] = 'article'
         node.tag = "div"
         reset_counter_to(articles, current_level)

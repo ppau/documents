@@ -2,7 +2,7 @@
 <html lang='en'>
 <head>
   <meta charset='utf-8'>
-  <title>Pirate Party Australia Constitution</title>
+  <title>Pirate Party Australia {title}</title>
   <style>
       @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
 
@@ -40,6 +40,7 @@
       .date {
         display: block;
       }
+	  
 
       .page {
         background-color: white;
@@ -48,6 +49,7 @@
         margin: 0 auto;
         position: relative;
       }
+
 
       a {
         text-decoration: none;
@@ -119,12 +121,14 @@
         counter-increment: part;
         counter-reset: article;
       }  
-        
+    	
+      /*!!	
       .part:before {
         content: "Part " counter(part, upper-roman) "\A";
         font-size: 75%%;
         line-height: 1.6em;
       }
+      !!*/
 
       /* Verbose mess needed for IE8 compat */
       h2 {
@@ -197,7 +201,7 @@
         <img src="ppauLogo-australia.png" alt="Pirate Party Australia logo">
       </div>
       
-      <h1 class='title'>Party Constitution</h1>
+      <h1 class='title'>{title}</h1>
       
       <time datetime="{date_iso}" class='date'>{date}</time>
     </header>
