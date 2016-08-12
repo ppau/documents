@@ -37,12 +37,12 @@ list_depth_style = {
 
 def get_list_depth(node):
     i = -1
-    if node.tag == "ol":
+    if node.tag == "ol" or node.tag == "ul":
         i += 1
 
     parent = node.getparent()
     while parent is not None:
-        if parent.tag == "ol":
+        if parent.tag == "ol" or parent.tag == "ul":
             i += 1
         parent = parent.getparent()
 
@@ -166,6 +166,11 @@ for node in doc.body.iter():
         create_para_link(doc, node, node.attrib['id'])
 
     elif node.tag == "ol":
+        list_depth = get_list_depth(node)
+        reset_counter_to(list_items, list_depth-1)
+        node.attrib['type'] = list_depth_tokens[list_depth]
+        
+    elif node.tag == "ul":
         list_depth = get_list_depth(node)
         reset_counter_to(list_items, list_depth-1)
         node.attrib['type'] = list_depth_tokens[list_depth]
