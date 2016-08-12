@@ -24,6 +24,10 @@ Script options:
 - `-T Title\ Goes\ Here`, `--title` - defines the title (if empty, prints blank).
 - `-P`, `--parts` - used for documents with parts (numbered with Roman numerals).
 
+Example: `python3 convert_tex_to_html.py > output.html -f input.tex -T Title -P`
+
+This will make output.html from input.tex, the contents will be titled 'Title', and it will have part numbering.
+
 The input TeX file can be very basic and does not need a preamble:
 
 ```
