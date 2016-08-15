@@ -14,7 +14,7 @@ Requires Python 3, with `lxml` and `roman` packages (see below).
 
 Run: `python3 convert_tex_to_html.py > file.html` and open the resulting HTML file.
 
-## Script documentation
+## convert_tex_to_html.py
 
 Script options:
 
@@ -42,7 +42,36 @@ The input TeX file can be very basic and does not need a preamble:
 \end{enumerate}
 ```
 
-Note that `\part` must be present in the document (at least for now) regardless of whether it actually has parts; this can be an empty `\part{}`.
+Note that `\part` must be present in the TeX document (at least for now) regardless of whether it actually has parts; this can be an empty `\part{}` if parts are not intended to be used.
+
+## build_all_draft.sh and build_all_final.sh
+
+For convenience, two bash scripts are provided to compile multiple documents.
+
+Put documents that are divided into parts into a subdirectory called `part` and documents that are divided into sections into a subdirectory called `section`. Files must use the Mediawiki syntax and must have the extension `.wik`.
+
+The file name is taken from the file name of the .wik file, and the title of the document is taken from the first line of the .wik file.
+
+`example_document.wik` with the contents
+
+```
+Document Title
+
+=Heading Level 1=
+
+Body.
+
+==Heading Level 2==
+
+* Unordered list item
+
+===Heading Level 3===
+
+# Ordered list item
+
+```
+
+will produce `example_document.html`
 
 ## Setting up on OS X
 
