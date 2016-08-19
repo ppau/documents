@@ -16,6 +16,7 @@ a.add_argument('-d', '--date', default=[], nargs=1, help='Date string to use (yy
 a.add_argument('-f', '--file', dest='texfile', type=argparse.FileType('r'), default='./constitution.tex')
 a.add_argument('-T', '--title', default=[])
 a.add_argument('-P', '--parts', default=False, action='store_true')
+a.add_argument('-toc', '--toc', default=False, action='store_true')
 args = a.parse_args()
 
 with open('resources/draft.png.base64') as f:
@@ -143,7 +144,7 @@ for node in doc.body.iter():
         else: continue
 
     # Catch sections (\part)
-    if node.tag == "section":
+    if node.tag == "section" and node.attrib['class'] != "footnotes":
         last_section = node
         current_level = int(node.attrib['class'][5:]) - 1
 
@@ -159,6 +160,8 @@ for node in doc.body.iter():
     elif node.tag in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
         if node.tag == "h1":
             node.attrib['class'] = 'part'
+            if args.toc:
+                doc.body.cssselect("#toc")[0].append(lxml.html.fragment_fromstring("<li><a href='#" + last_section.attrib['id'] + "'>" + node.text + "</a></li>"))
         create_para_link(doc, node, last_section.attrib['id'])
 
     elif node.tag == "dt":
@@ -166,9 +169,12 @@ for node in doc.body.iter():
         create_para_link(doc, node, node.attrib['id'])
 
     elif node.tag == "ol":
-        list_depth = get_list_depth(node)
-        reset_counter_to(list_items, list_depth-1)
-        node.attrib['type'] = list_depth_tokens[list_depth]
+        if node.getparent().attrib['class'] == "footnotes":
+            node.attrib['class'] = "footnote-list"
+        elif node.attrib['id'] != "toc":
+            list_depth = get_list_depth(node)
+            reset_counter_to(list_items, list_depth-1)
+            node.attrib['type'] = list_depth_tokens[list_depth]
         
     elif node.tag == "ul":
         list_depth = get_list_depth(node)
@@ -176,10 +182,13 @@ for node in doc.body.iter():
         node.attrib['type'] = list_depth_tokens[list_depth]
 
     elif node.tag == "li":
-        list_depth = get_list_depth(node)
-        list_items[list_depth] += 1
-        node.attrib['id'] = last_id + generate_list_id(list_items, list_depth)
-        reset_counter_to(list_items, list_depth)
-        create_para_link(doc, node[0], node.attrib['id'])
+        if node.getparent().getparent().tag == "section":
+            node.attrib['class'] = "footnote"
+        else:
+            list_depth = get_list_depth(node)
+            list_items[list_depth] += 1
+            node.attrib['id'] = last_id + generate_list_id(list_items, list_depth)
+            reset_counter_to(list_items, list_depth)
+            create_para_link(doc, node[0], node.attrib['id'])
 
 print(lxml.html.tostring(doc, pretty_print=True).decode())

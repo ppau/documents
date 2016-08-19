@@ -184,6 +184,23 @@
           padding: 0;
         }
       }
+      
+      #toc{
+          list-style: none;
+	  }
+	  
+	  #toc li {
+	      margin-bottom: 0.5em;
+	  }
+      
+      .footnote-list{
+          list-style: decimal;
+      }
+      
+      .footnote a {
+           word-wrap: break-word;
+           word-break: break-all;
+      }
 
       ol { counter-reset: list; list-style-type: none; }
       ol > li:before { counter-increment: list; float: left; margin-left: -2.2em; }
@@ -207,6 +224,8 @@
     </header>
     
     <hr>
+    
+    <ol id="toc"></ol>
     
     %s
 
