@@ -97,6 +97,7 @@ process = Popen(cmd, shell=True, stdout=PIPE, stdin=args.texfile)
 
 data = process.communicate()[0].decode()
 text = open('template.html').read() % data
+
 if len(args.date) > 0:
     date = datetime.datetime.strptime(args.date[0], "%Y-%m-%d")
 else:
@@ -116,6 +117,14 @@ doc = lxml.html.fromstring(text)
 if args.parts:
 	text = text.replace("/*!!", "")
 	text = text.replace("!!*/", "")
+	
+doc = lxml.html.fromstring(text)
+
+if args.toc:
+	text = text.replace("{toc}", "Contents")
+else:
+    text = text.replace('<h2 class="toc-heading">{toc}</h2>', '')
+    text = text.replace('<ol id="toc"></ul>', '')
 	
 doc = lxml.html.fromstring(text)
 
@@ -156,12 +165,18 @@ for node in doc.body.iter():
             #node.attrib['class'] = 'article'
         node.tag = "div"
         reset_counter_to(articles, current_level)
+    
+    if node.tag == "h1":
+        if args.toc and args.parts:
+            doc.body.cssselect("#toc")[0].append(lxml.html.fragment_fromstring("<li><p><a href='#" + last_section.attrib['id'] + "'>" + node.text + "</a></p></li>"))
+                
+    if node.tag == "h2":
+        if args.toc and not args.parts:
+            doc.body.cssselect("#toc")[0].append(lxml.html.fragment_fromstring("<li><p><a href='#" + last_section.attrib['id'] + "'>" + node.text + "</a></p></li>"))
 
     elif node.tag in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
         if node.tag == "h1":
             node.attrib['class'] = 'part'
-            if args.toc:
-                doc.body.cssselect("#toc")[0].append(lxml.html.fragment_fromstring("<li><a href='#" + last_section.attrib['id'] + "'>" + node.text + "</a></li>"))
         create_para_link(doc, node, last_section.attrib['id'])
 
     elif node.tag == "dt":
@@ -169,9 +184,9 @@ for node in doc.body.iter():
         create_para_link(doc, node, node.attrib['id'])
 
     elif node.tag == "ol":
-        if node.getparent().attrib['class'] == "footnotes":
+        if "class" in dict() and node.getparent().attrib['class'] == "footnotes":
             node.attrib['class'] = "footnote-list"
-        elif node.attrib['id'] != "toc":
+        else:
             list_depth = get_list_depth(node)
             reset_counter_to(list_items, list_depth-1)
             node.attrib['type'] = list_depth_tokens[list_depth]

@@ -69,6 +69,10 @@
       a:hover {
         border-bottom: 1px dotted #0073ae;
       }
+      
+      /* this chunk gets toggled by the script depending on whether the -P/--parts argument is present */
+      
+      /*!!
 
       h1 {
         margin-top: 2em;
@@ -76,6 +80,8 @@
         padding-left: 12px;
         border-left: 6px solid #0073ae;
       }
+      
+      !!*/
 
       h2 {
         padding-top: 0.5em;
@@ -121,6 +127,8 @@
         counter-increment: part;
         counter-reset: article;
       }  
+      
+      /* this chunk gets toggled by the script depending on whether the -P/--parts argument is present */
     	
       /*!!	
       .part:before {
@@ -131,6 +139,7 @@
       !!*/
 
       /* Verbose mess needed for IE8 compat */
+      
       h2 {
         counter-increment: article;
         counter-reset: subarticle;
@@ -185,21 +194,21 @@
         }
       }
       
+      .toc-heading:before {
+          content: "";
+      }
+      
       #toc{
-          list-style: none;
-	  }
-	  
-	  #toc li {
-	      margin-bottom: 0.5em;
+        list-style: none;
 	  }
       
       .footnote-list{
-          list-style: decimal;
+        list-style: decimal;
       }
       
       .footnote a {
-           word-wrap: break-word;
-           word-break: break-all;
+        word-wrap: break-word;
+        word-break: break-all;
       }
 
       ol { counter-reset: list; list-style-type: none; }
@@ -221,11 +230,14 @@
       <h1 class='title'>{title}</h1>
       
       <time datetime="{date_iso}" class='date'>{date}</time>
+      
     </header>
+      
+	  <h2 class="toc-heading">{toc}</h2>
+    
+      <ol id="toc"></ol>
     
     <hr>
-    
-    <ol id="toc"></ol>
     
     %s
 
