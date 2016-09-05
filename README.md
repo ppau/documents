@@ -23,6 +23,7 @@ Script options:
 - `-f document.tex`, `--file` - changes the default input TeX file (constitution.tex) to whatever is specified.
 - `-T Title\ Goes\ Here`, `--title` - defines the title (if empty, prints blank).
 - `-P`, `--parts` - used for documents with parts (numbered with Roman numerals).
+- `-toc`, `--toc` - adds a table of contents using the highest heading level in the document.
 
 Example: `python3 convert_tex_to_html.py > output.html -f input.tex -T Title -P`
 

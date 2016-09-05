@@ -92,7 +92,7 @@ def reset_counter_to(counter, depth):
     for k in [k for k in counter.keys() if k > depth]:
         del counter[k]
 
-cmd = r"sed 's/\\part/\\chapter/' | pandoc -f latex -t html5 --section-divs"
+cmd = r"sed 's/\\part/\\chapter/' | pandoc -f latex -t html5 --section-divs --email-obfuscation=none"
 process = Popen(cmd, shell=True, stdout=PIPE, stdin=args.texfile)
 
 data = process.communicate()[0].decode()
@@ -165,19 +165,16 @@ for node in doc.body.iter():
             #node.attrib['class'] = 'article'
         node.tag = "div"
         reset_counter_to(articles, current_level)
-    
-    if node.tag == "h1":
-        if args.toc and args.parts:
-            doc.body.cssselect("#toc")[0].append(lxml.html.fragment_fromstring("<li><p><a href='#" + last_section.attrib['id'] + "'>" + node.text + "</a></p></li>"))
-                
-    if node.tag == "h2":
-        if args.toc and not args.parts:
-            doc.body.cssselect("#toc")[0].append(lxml.html.fragment_fromstring("<li><p><a href='#" + last_section.attrib['id'] + "'>" + node.text + "</a></p></li>"))
 
-    elif node.tag in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
+    if node.tag in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
+        create_para_link(doc, node, last_section.attrib['id'])
         if node.tag == "h1":
             node.attrib['class'] = 'part'
-        create_para_link(doc, node, last_section.attrib['id'])
+            if args.toc and args.parts:
+                doc.body.cssselect("#toc")[0].append(lxml.html.fragment_fromstring("<li><p><a href='#" + last_section.attrib['id'] + "'>" + node.text + "</a></p></li>"))
+        if node.tag == "h2":
+            if args.toc and not args.parts:
+                doc.body.cssselect("#toc")[0].append(lxml.html.fragment_fromstring("<li><p><a href='#" + last_section.attrib['id'] + "'>" + node.text + "</a></p></li>"))
 
     elif node.tag == "dt":
         node.attrib['id'] = node.text.strip().lower().replace(" ", '-').replace(":", "")
@@ -205,5 +202,8 @@ for node in doc.body.iter():
             node.attrib['id'] = last_id + generate_list_id(list_items, list_depth)
             reset_counter_to(list_items, list_depth)
             create_para_link(doc, node[0], node.attrib['id'])
+            
+    if node.tag == "hr":
+        node.attrib['style'] = "display:none;"
 
 print(lxml.html.tostring(doc, pretty_print=True).decode())

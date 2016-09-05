@@ -22,6 +22,7 @@ if [ "$(ls part/*.tex)" ]; then
       sed -i '' -e '1,2d' $filename
       sed -i '' -e 's/\\end{document}//g;s/\\label.*}//g;s/\\\tightlist//g' $filename
       sed -i '' -e 's/\\section/\\part/g;s/\\subsection/\\section/g;s/\\subsubsection/\\subsection/g' $filename
+	  sed -i '' -e 's/\\nolinkurl//g' $filename
 	  python3 convert_tex_to_html.py > ${filename%.*}.html -f $filename -P -toc -T "$title" | sed 's/ /\\ /g'
 	  echo ... converted $filename to HTML.
     done
@@ -36,7 +37,8 @@ if [ "$(ls section/*.tex)" ]; then
       sed -i '' -e 's/\\end{document}//g;s/\\label.*}//g;s/\\\tightlist//g' $filename
       sed -i '' -e '1s/^/\\part{}\
 /' $filename
-	  python3 convert_tex_to_html.py > ${filename%.*}.html -f $filename -toc -T "$title" | sed 's/ /\\ /g'
+      sed -i '' -e 's/\\nolinkurl//g' $filename
+      python3 convert_tex_to_html.py > ${filename%.*}.html -f $filename -toc -T "$title" | sed 's/ /\\ /g'
 	  echo ... converted $filename to HTML.
     done
 fi
