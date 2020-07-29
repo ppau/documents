@@ -14,6 +14,7 @@ a = argparse.ArgumentParser()
 a.add_argument('-F', '--final', default=False, action='store_true', help='Remove draft watermarks')
 a.add_argument('-d', '--date', default=[], nargs=1, help='Date string to use (yyyy-mm-dd)')
 a.add_argument('-f', '--file', dest='texfile', type=argparse.FileType('r'), default='./constitution.tex')
+a.add_argument('-t', '--template', dest='template', type=argparse.FileType('r'), default='./template.html')
 a.add_argument('-T', '--title', default=[])
 a.add_argument('-P', '--parts', default=False, action='store_true')
 a.add_argument('-toc', '--toc', default=False, action='store_true')
@@ -96,7 +97,7 @@ cmd = r"sed 's/\\part/\\chapter/' | pandoc -f latex -t html5 --section-divs --em
 process = Popen(cmd, shell=True, stdout=PIPE, stdin=args.texfile)
 
 data = process.communicate()[0].decode()
-text = open('template.html').read() % data
+text = args.template.read() % data
 
 if len(args.date) > 0:
     date = datetime.datetime.strptime(args.date[0], "%Y-%m-%d")
@@ -206,4 +207,4 @@ for node in doc.body.iter():
     if node.tag == "hr":
         node.attrib['style'] = "display:none;"
 
-print(lxml.html.tostring(doc, pretty_print=True).decode())
+print(lxml.html.tostring(doc, pretty_print=True, doctype="<!DOCTYPE html>").decode())

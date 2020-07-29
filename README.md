@@ -2,6 +2,8 @@
 
 ## Constitution
 
+### System requirements
+
 ### Generate as PDF
 
 To compile the Constitution, you need to have installed a `xelatex` compiler, which comes with TeX Live and other package sets.
@@ -10,7 +12,7 @@ Then run: `xelatex constitution.tex` twice and open the resulting PDF file.
 
 ### Generate as HTML
 
-Requires Python 3, with `lxml` and `roman` packages (see below).
+Requires Python 3, with `lxml` and `roman` and `cssselect` packages (see below).
 
 Run: `python3 convert_tex_to_html.py > file.html` and open the resulting HTML file.
 
@@ -90,3 +92,13 @@ This works for getting the Python script running in OS X El Capitan (10.11.6). M
 10. Install [lxml](http://lxml.de) with `pip install lxml`.
 11. Install [Roman](https://pypi.python.org/pypi/roman) with `pip install Roman`.
 12. Install [cssselect](https://pypi.python.org/pypi/cssselect) with `pip install cssselect`.
+
+
+## Setting up on Ubuntu 16.04
+
+System packages:
+$ apt-get install pandoc texlive-latex-recommended libxml2 libxslt1.1
+
+Using a python3 virtual environment
+$ pip install lxml cssselect roman
+
