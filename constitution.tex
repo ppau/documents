@@ -46,7 +46,10 @@
 
 \begin{document}
 
-% \begin{comment} % uncomment here and below to hide cover page
+% The title page interferes with the HTML version. 
+% Activate the comments, and run `convert_tex_to_html.py` with the --date, --title and --parts options. 
+
+\begin{comment} % uncomment here and below to build HTML or even just hide the cover page
 \begin{titlepage}
 \newgeometry{bottom=0in}
 \begin{center}
@@ -62,16 +65,16 @@
 \vfill
 \onehalfspacing
 
-\large{%
-  \today
-  %December 8, 2017%
+\large{
+  %\today
+  December 8, 2017  % or new relevant fixed date
 }
 \vfill
 \hspace*{-1.4in}\includegraphics[width=1.2\paperwidth]{resources/boat-branding}
 \end{center}
 \restoregeometry
 \end{titlepage}
-% \end{comment}
+\end{comment} % this is "below"
 
 
 \newpage
