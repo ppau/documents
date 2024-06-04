@@ -1,78 +1,86 @@
 <!DOCTYPE html>
 <html lang='en'>
+
 <head>
   <meta charset='utf-8'>
   <title>Pirate Party Australia {title}</title>
   <style>
-      @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+    @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
 
-      body {
-        font-family: "Open Sans", sans-serif;
-        counter-reset: part;
-        background-color: #eee;
-        margin: 0;
-      }
+    body {
+      font-family: "Open Sans", sans-serif;
+      counter-reset: part;
+      background-color: #eee;
+      margin: 0;
+    }
 
-      body.draft .page {
-        background: url(draft.png) repeat;
-        background-size: 100%%;
-      }
-      
-      .header {
-        padding-bottom: 2em;
-        text-align: center;
-      }
-      
-      .logo img {
-        width: 90%%;
-        padding-bottom: 5em;
-      }
+    body.draft .page {
+      background: url(draft.png) repeat;
+      background-size: 100%%;
+    }
 
-      .title {
-        font-size: 30pt;
-        font-weight: bold;
-        border: 0;
-        margin: 0;
-      }
+    .header {
+      padding-bottom: 2em;
+      text-align: center;
+    }
 
-      dt { font-weight: bold }
+    .logo img {
+      width: 90%%;
+      padding-bottom: 5em;
+    }
 
-      .date {
-        display: block;
-      }
-	  
+    .title {
+      font-size: 30pt;
+      font-weight: bold;
+      border: 0;
+      margin: 0;
+    }
 
-      .page {
-        background-color: white;
-        padding: 4em;
-        max-width: 694px;
-        margin: 0 auto;
-        position: relative;
-      }
+    dt {
+      font-weight: bold
+    }
+
+    .date {
+      display: block;
+    }
 
 
-      a {
-        text-decoration: none;
-        color: #0073ae;
-      }
-      
-      .pilcrow {
-        display: none;
-        float: right;
-      }
+    .page {
+      background-color: white;
+      padding: 4em;
+      max-width: 694px;
+      margin: 0 auto;
+      position: relative;
+    }
 
-      .hl {
-        background-color: rgba(255,255,0,0.4);
-        transition: all 1.5s;
-      }
 
-      a:hover {
-        border-bottom: 1px dotted #0073ae;
-      }
-      
-      /* this chunk gets toggled by the script depending on whether the -P/--parts argument is present */
-      
-      /*!!
+    a {
+      text-decoration: none;
+      color: #0073ae;
+    }
+
+    .pilcrow {
+      display: none;
+      float: right;
+    }
+
+    .hl {
+      background-color: rgba(255, 255, 0, 0.4);
+      transition: all 1.5s;
+    }
+
+    a:hover {
+      border-bottom: 1px dotted #0073ae;
+    }
+
+    .titlepage {
+      display: none;
+      /* Workaround */
+    }
+
+    /* this chunk gets toggled by the script depending on whether the -P/--parts argument is present */
+
+    /*!!
 
       h1 {
         margin-top: 2em;
@@ -83,54 +91,61 @@
       
       !!*/
 
-      h2 {
-        padding-top: 0.5em;
-        padding-bottom: 0.1em;
-        margin-bottom: 1em;
-        border-bottom: 2px solid #cfcfcf;
-      }
-      
-      h3 {
-        padding-top: 0.2em;
-        padding-bottom: 0.1em;
-        margin-bottom: 0.8em;
-        border-bottom: 1px solid #c0c0c0;
-      }
+    h2 {
+      padding-top: 0.5em;
+      padding-bottom: 0.1em;
+      margin-bottom: 1em;
+      border-bottom: 2px solid #cfcfcf;
+    }
 
-      h1, h2, h3, h4, h5, h6, dt, p {
-        position: relative;
-      }
+    h3 {
+      padding-top: 0.2em;
+      padding-bottom: 0.1em;
+      margin-bottom: 0.8em;
+      border-bottom: 1px solid #c0c0c0;
+    }
 
-      h1:hover .pilcrow,
-      h2:hover .pilcrow,
-      h3:hover .pilcrow,
-      h4:hover .pilcrow,
-      h5:hover .pilcrow,
-      h6:hover .pilcrow,
-      dt:hover .pilcrow,
-      p:hover .pilcrow {
-        display: inline;
-        position: absolute;
-        right: 0;
-      }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    dt,
+    p {
+      position: relative;
+    }
 
-      h1:before,
-      h2:before,
-      h3:before,
-      h4:before,
-      h5:before,
-      h6:before {
-        white-space: pre;
-      }
+    h1:hover .pilcrow,
+    h2:hover .pilcrow,
+    h3:hover .pilcrow,
+    h4:hover .pilcrow,
+    h5:hover .pilcrow,
+    h6:hover .pilcrow,
+    dt:hover .pilcrow,
+    p:hover .pilcrow {
+      display: inline;
+      position: absolute;
+      right: 0;
+    }
 
-      .part {
-        counter-increment: part;
-        counter-reset: article;
-      }  
-      
-      /* this chunk gets toggled by the script depending on whether the -P/--parts argument is present */
-    	
-      /*!!	
+    h1:before,
+    h2:before,
+    h3:before,
+    h4:before,
+    h5:before,
+    h6:before {
+      white-space: pre;
+    }
+
+    .part {
+      counter-increment: part;
+      counter-reset: article;
+    }
+
+    /* this chunk gets toggled by the script depending on whether the -P/--parts argument is present */
+
+    /*!!	
       .part:before {
         content: "Part " counter(part, upper-roman) "\A";
         font-size: 75%%;
@@ -138,107 +153,128 @@
       }
       !!*/
 
-      /* Verbose mess needed for IE8 compat */
-      
-      h2 {
-        counter-increment: article;
-        counter-reset: subarticle;
+    /* Verbose mess needed for IE8 compat */
+
+    h2 {
+      counter-increment: article;
+      counter-reset: subarticle;
+    }
+
+    h2:before {
+      content: counter(article) "\A0\A0";
+    }
+
+    h3 {
+      counter-increment: subarticle;
+      counter-reset: subsubarticle;
+    }
+
+    h3:before {
+      content: counter(article) "." counter(subarticle) "\A0\A0";
+    }
+
+    h4 {
+      counter-increment: subsubarticle;
+      counter-reset: paragraph;
+    }
+
+    h4:before {
+      content: counter(article) "." counter(subarticle) "." counter(subsubarticle) "\A0\A0";
+    }
+
+    h5 {
+      counter-increment: paragraph;
+      counter-reset: subparagraph;
+    }
+
+    h5:before {
+      content: counter(article) "." counter(subarticle) "." counter(subsubarticle) "." counter(paragraph) "\A0\A0";
+    }
+
+    h6 {
+      counter-increment: subparagraph;
+    }
+
+    h6:before {
+      content: counter(article) "." counter(subarticle) "." counter(subsubarticle) "." counter(paragraph) "." counter(subparagraph) "\A0\A0";
+    }
+
+    @media (max-width: 480px) {
+      .page {
+        padding: 2em 0.5em;
       }
 
-      h2:before {
-        content: counter(article) "\A0\A0";
+      .logo {
+        padding: 0;
       }
+    }
 
-      h3 {
-        counter-increment: subarticle;
-        counter-reset: subsubarticle;
-      }
+    .toc-heading:before {
+      content: "";
+    }
 
-      h3:before {
-        content: counter(article) "." counter(subarticle) "\A0\A0";
-      }
+    #toc {
+      list-style: none;
+    }
 
-      h4 {
-        counter-increment: subsubarticle;
-        counter-reset: paragraph;
-      }
+    .footnote-list {
+      list-style: decimal;
+    }
 
-      h4:before {
-        content: counter(article) "." counter(subarticle) "." counter(subsubarticle) "\A0\A0";
-      }
+    .footnote a {
+      word-wrap: break-word;
+      word-break: break-all;
+    }
 
-      h5 {
-        counter-increment: paragraph;
-        counter-reset: subparagraph;
-      }
+    ol {
+      counter-reset: list;
+      list-style-type: none;
+    }
 
-      h5:before {
-        content: counter(article) "." counter(subarticle) "." counter(subsubarticle) "." counter(paragraph) "\A0\A0";
-      }
+    ol>li:before {
+      counter-increment: list;
+      float: left;
+      margin-left: -2.2em;
+    }
 
-      h6 {
-        counter-increment: subparagraph;
-      }
+    ol[type='1']>li:before {
+      content: "(" counter(list) ")";
+    }
 
-      h6:before {
-        content: counter(article) "." counter(subarticle) "." counter(subsubarticle) "." counter(paragraph) "." counter(subparagraph) "\A0\A0";
-      }
+    ol[type='i']>li:before {
+      content: "(" counter(list, lower-roman) ")";
+    }
 
-      @media (max-width: 480px) { 
-        .page {
-          padding: 2em 0.5em;
-        }
+    ol[type='a']>li:before {
+      content: "(" counter(list, lower-alpha) ")";
+    }
 
-        .logo {
-          padding: 0;
-        }
-      }
-      
-      .toc-heading:before {
-          content: "";
-      }
-      
-      #toc{
-        list-style: none;
-	  }
-      
-      .footnote-list{
-        list-style: decimal;
-      }
-      
-      .footnote a {
-        word-wrap: break-word;
-        word-break: break-all;
-      }
-
-      ol { counter-reset: list; list-style-type: none; }
-      ol > li:before { counter-increment: list; float: left; margin-left: -2.2em; }
-      ol[type='1'] > li:before { content: "(" counter(list) ")"; }
-      ol[type='i'] > li:before { content: "(" counter(list, lower-roman) ")"; }
-      ol[type='a'] > li:before { content: "(" counter(list, lower-alpha) ")"; }
-      /* Nesting due to Chrome case insensitivity bug */
-      ol[type='a'] > li > ol[type='A'] > li:before { content: "(" counter(list, lower-alpha) ")"; }
+    /* Nesting due to Chrome case insensitivity bug */
+    ol[type='a']>li>ol[type='A']>li:before {
+      content: "(" counter(list, lower-alpha) ")";
+    }
   </style>
 </head>
+
 <body>
   <div class='page'>
     <header class='header'>
       <div class='logo'>
         <img src="ppauLogo-australia.png" alt="Pirate Party Australia logo">
       </div>
-      
+
       <h1 class='title'>{title}</h1>
-      
+
       <time datetime="{date_iso}" class='date'>{date}</time>
-      
+
     </header>
-      
-	  <h2 class="toc-heading">{toc}</h2>
-    
-      <ol id="toc"></ol>
-    
+
+    <h2 class="toc-heading">{toc}</h2>
+
+    <ol id="toc"></ol>
+
     <hr>
-    
+
     %s
 
   </div>

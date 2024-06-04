@@ -1,7 +1,9 @@
-
 .DS_Store
 *.aux
 *.log
 *.out
 *.synctex.*
 *.toc
+
+constitution.pdf
+env

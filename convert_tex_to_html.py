@@ -15,7 +15,7 @@ a.add_argument('-F', '--final', default=False, action='store_true', help='Remove
 a.add_argument('-d', '--date', default=[], nargs=1, help='Date string to use (yyyy-mm-dd)')
 a.add_argument('-f', '--file', dest='texfile', type=argparse.FileType('r'), default='./constitution.tex')
 a.add_argument('-t', '--template', dest='template', type=argparse.FileType('r'), default='./template.html')
-a.add_argument('-T', '--title', default=[])
+a.add_argument('-T', '--title', default='Constitution')
 a.add_argument('-P', '--parts', default=False, action='store_true')
 a.add_argument('-toc', '--toc', default=False, action='store_true')
 args = a.parse_args()
